@@ -8,7 +8,6 @@ namespace Hector.Model
 {
     class Article
     {
-        private int IdArticle;
         private String Description;
         private String Reference;
         //private Marque Marque;
