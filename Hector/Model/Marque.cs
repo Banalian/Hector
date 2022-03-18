@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace Hector.Model
 {
-    class Marque
+    public class Marque
     {
-        private int RefMarque;
-        private String nom;
+        public int RefMarque { get; set; }
+        public String NomMarque { get; set; }
 
+        public Marque(String nom)
+        {
+            NomMarque = nom;
+        }
     }
 }

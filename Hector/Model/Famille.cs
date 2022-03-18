@@ -6,15 +6,20 @@ using System.Threading.Tasks;
 
 namespace Hector.Model
 {
-    class Famille
+    public class Famille
     {
-        private int RefFamille;
-        private String nom;
+        public int RefFamille { get; set; }
+        public String NomFamille { get; set; }
 
         public Famille()
         {
             RefFamille = 0;
-            nom = "";
+            NomFamille = "";
+        }
+
+        public Famille(String nom)
+        {
+            NomFamille = nom;
         }
     }
 }

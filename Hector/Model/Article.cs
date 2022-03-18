@@ -6,23 +6,29 @@ using System.Threading.Tasks;
 
 namespace Hector.Model
 {
-    class Article
+    public class Article
     {
-        private String Description;
-        private String Reference;
-        //private Marque Marque;
-        //private Famille Famille;
-        //private SousFamille SousFamille;
+        public String Description { get; set; }
+        public String Reference { get; set; }
+        public Marque Marque { get; set; }
+        public Famille Famille { get; set; }
+        public SousFamille SousFamille { get; set; }
 
-        private float PrixHT;
+        public float PrixHT { get; set; }
 
         public Article() {
             Description = "";
             Reference = "";
             PrixHT = 0.0f;
         }
-        
 
+        public Article(String description , String reference , float prixHT)
+        {
+            Description = description;
+            Reference = reference;
+            PrixHT = prixHT;
+        }
 
     }
+
 }

@@ -59,6 +59,7 @@
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Article.cs" />
+    <Compile Include="Controller\LecteurCSV.cs" />
     <Compile Include="Model\Famille.cs" />
     <Compile Include="Model\Marque.cs" />
     <Compile Include="Model\SousFamille.cs" />
