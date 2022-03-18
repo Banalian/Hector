@@ -10,24 +10,38 @@ namespace Hector.Model
 {
     class LecteurCSV
     {
-        private String chemin { get; set; }
-        private StreamReader streamReader { get; set; }
-        private char[] separateurs { get; set; }
+        private String Chemin { get; set; }
+        private StreamReader StreamReader { get; set; }
+        private char[] Separateurs { get; set; }
+
+        public LecteurCSV(String chemin)
+        {
+            Chemin = chemin;
+            Separateurs.Append(',');
+        }
+        public LecteurCSV(String chemin,char[] separateurs)
+        {
+            Chemin = chemin;
+            Separateurs = separateurs;
+        }
 
         public Article[] Lire()
         {
-            Article[] articles = null;
+
+            StreamReader = new StreamReader(Chemin);
+
+            Article[] Articles = null;
             Article articleActuel = new Article();
 
             Marque[] marques = null;
             Famille[] familles = null;
             SousFamille[] sousFamilles = null;
 
-            String data = streamReader.ReadLine();
+            String data = StreamReader.ReadLine();
             String[] ligne;
-            while ((data = streamReader.ReadLine()) != null)
+            while ((data = StreamReader.ReadLine()) != null)
             {
-                ligne = data.Split(separateurs);
+                ligne = data.Split(Separateurs);
 
                 articleActuel = new Article(ligne[0], ligne[1], float.Parse(ligne[5]));
 
@@ -52,11 +66,11 @@ namespace Hector.Model
                     sousFamilles.Append(sousFamilleActuelle);
                 }
 
-                articles.Append(articleActuel);
+                Articles.Append(articleActuel);
 
             }
 
-            return articles;
+            return Articles;
         }
 
     }
