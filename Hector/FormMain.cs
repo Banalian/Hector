@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Hector
 {
@@ -19,7 +20,8 @@ namespace Hector
 
         private void importerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            FormImport importForm = new FormImport();
+            importForm.ShowDialog();
         }
     }
 }
