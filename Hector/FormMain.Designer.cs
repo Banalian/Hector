@@ -75,6 +75,7 @@
             this.importerToolStripMenuItem.Name = "importerToolStripMenuItem";
             this.importerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.importerToolStripMenuItem.Text = "Importer";
+            this.importerToolStripMenuItem.Click += new System.EventHandler(this.importerToolStripMenuItem_Click);
             // 
             // exporterToolStripMenuItem
             // 

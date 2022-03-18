@@ -16,5 +16,10 @@ namespace Hector
         {
             InitializeComponent();
         }
+
+        private void importerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
