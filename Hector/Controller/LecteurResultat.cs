@@ -1,44 +1,74 @@
 ﻿using Hector.Model;
+using System;
 using System.Collections.Generic;
 
 namespace Hector.Controller
 {
     class LecteurResultat
     {
-        public List<Article> articles { get; set; }
-        public List<Marque> marques { get; set; }
-        public List<Famille> familles { get; set; }
-        public List<SousFamille> sousFamilles { get; set; }
+        public List<Article> Articles { get; set; }
+        public List<Marque> Marques { get; set; }
+        public List<Famille> Familles { get; set; }
+        public List<SousFamille> SousFamilles { get; set; }
+        public LecteurResultat()
+        {
+            Articles = new List<Article>();
+            Marques = new List<Marque>();
+            SousFamilles = new List<SousFamille>();
+            Familles = new List<Famille>();
+        }
 
         public void ajouterFamille(Famille nouvelleFamille)
         {
-            if (!familles.Contains(nouvelleFamille))
+            if (! Familles.Contains(nouvelleFamille))
             {
-                familles.Add(nouvelleFamille);
+                Familles.Add(nouvelleFamille);
             }
         }
 
         public void ajouterMarque(Marque nouvelleMarque)
         {
-            if (!marques.Contains(nouvelleMarque))
+            if (! Marques.Contains(nouvelleMarque))
             {
-                marques.Add(nouvelleMarque);
+                Marques.Add(nouvelleMarque);
             }
         }
 
         public void ajouterSousFamille(SousFamille nouvelleSF)
         {
-            if (sousFamilles.Contains(nouvelleSF))
+            if (! SousFamilles.Contains(nouvelleSF))
             {
-                sousFamilles.Add(nouvelleSF);
+                SousFamilles.Add(nouvelleSF);
             }
         }
         public void ajouterArticle(Article nouvelArticle)
         {
-            if (articles.Contains(nouvelArticle))
+            Articles.Add(nouvelArticle);
+        }
+
+        public override string ToString()
+        {
+            string rezArticles = "";
+            for (int i = 0 ; i<Articles.Count ; i++)
             {
-                articles.Add(nouvelArticle);
+                rezArticles += Articles[i]+ ";";
             }
+            string rezMarques = "";
+            for (int i = 0; i < Marques.Count; i++)
+            {
+                rezMarques += Marques[i] + ";";
+            }
+            string rezFamilles = "";
+            for (int i = 0; i < Familles.Count; i++)
+            {
+                rezFamilles += Familles[i] + ";";
+            }
+            string rezSousFamilles = "";
+            for (int i = 0; i < SousFamilles.Count; i++)
+            {
+                rezSousFamilles += SousFamilles[i] + ";";
+            }
+            return rezArticles+"\n\n"+rezMarques+"\n\n"+rezFamilles+"\n\n"+rezSousFamilles;
         }
 
     }

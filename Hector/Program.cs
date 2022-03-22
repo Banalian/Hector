@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Hector.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Hector
 {
@@ -17,6 +19,14 @@ namespace Hector
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FormMain());
+
+            /*
+            LecteurCSV lecteur = new LecteurCSV("C:\\Users\\Administrateur\\Downloads\\Données à intégrer.csv");
+            LecteurResultat rez = new LecteurResultat();
+            rez = lecteur.Lire();
+
+            Debug.WriteLine(rez);
+            */
         }
     }
 }

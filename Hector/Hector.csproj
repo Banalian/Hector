@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\LecteurResultat.cs" />
     <Compile Include="FormImport.cs">
       <SubType>Form</SubType>
     </Compile>

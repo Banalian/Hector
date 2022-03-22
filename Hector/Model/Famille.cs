@@ -21,5 +21,14 @@ namespace Hector.Model
         {
             NomFamille = nom;
         }
+        public override string ToString()
+        {
+            return NomFamille;
+        }
+        public override bool Equals(object famille)
+        {
+            return NomFamille == ((Famille)famille).NomFamille &&
+                   RefFamille == ((Famille)famille).RefFamille;
+        }
     }
 }

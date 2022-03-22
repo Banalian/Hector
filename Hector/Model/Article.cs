@@ -13,7 +13,6 @@ namespace Hector.Model
         public Marque Marque { get; set; }
         public Famille Famille { get; set; }
         public SousFamille SousFamille { get; set; }
-
         public float PrixHT { get; set; }
 
         public Article() {
@@ -29,6 +28,11 @@ namespace Hector.Model
             PrixHT = prixHT;
         }
 
+        public override string ToString()
+        {
+            String rez = Description+" "+Reference+" "+Famille+" "+SousFamille;
+            return rez;
+        }
     }
 
 }

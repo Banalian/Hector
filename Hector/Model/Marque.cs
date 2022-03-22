@@ -15,5 +15,15 @@ namespace Hector.Model
         {
             NomMarque = nom;
         }
+
+        public override string ToString()
+        {
+            return NomMarque;
+        }
+
+        public override bool Equals(object marque)
+        {
+            return NomMarque == ((Marque) marque).NomMarque && RefMarque == ((Marque)marque).RefMarque;
+        }
     }
 }

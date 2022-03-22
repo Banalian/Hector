@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using Hector.Model;
+using System.Collections.Generic;
 
 
 namespace Hector.Controller
@@ -10,14 +10,15 @@ namespace Hector.Controller
     {
         private String Chemin { get; set; }
         private StreamReader StreamReader { get; set; }
-        private char[] Separateurs { get; set; }
+        private List<char> Separateurs { get; set; }
 
         public LecteurCSV(String chemin)
         {
             Chemin = chemin;
-            Separateurs.Append(',');
+            Separateurs = new List<char>();
+            Separateurs.Add(';');
         }
-        public LecteurCSV(String chemin,char[] separateurs)
+        public LecteurCSV(String chemin,List<char> separateurs)
         {
             Chemin = chemin;
             Separateurs = separateurs;
@@ -36,7 +37,7 @@ namespace Hector.Controller
             String[] ligne;
             while ((data = StreamReader.ReadLine()) != null)
             {
-                ligne = data.Split(Separateurs);
+                ligne = data.Split(Separateurs.ToArray());
 
                 articleActuel = new Article(ligne[0], ligne[1], float.Parse(ligne[5]));
 
