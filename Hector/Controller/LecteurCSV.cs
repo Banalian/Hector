@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Hector.Model;
 
 
-namespace Hector.Model
+namespace Hector.Controller
 {
     class LecteurCSV
     {
@@ -25,17 +23,14 @@ namespace Hector.Model
             Separateurs = separateurs;
         }
 
-        public Article[] Lire()
+        public LecteurResultat Lire()
         {
 
             StreamReader = new StreamReader(Chemin);
-
-            Article[] Articles = null;
+            
             Article articleActuel = new Article();
 
-            Marque[] marques = null;
-            Famille[] familles = null;
-            SousFamille[] sousFamilles = null;
+            LecteurResultat rez = new LecteurResultat();
 
             String data = StreamReader.ReadLine();
             String[] ligne;
@@ -47,30 +42,21 @@ namespace Hector.Model
 
                 Famille familleActuelle = new Famille(ligne[3]);
                 articleActuel.Famille = familleActuelle;
-                if (! familles.Contains(familleActuelle))
-                {
-                    familles.Append(familleActuelle);
-                }
+                rez.ajouterFamille(familleActuelle);
 
                 Marque marqueAcuelle = new Marque(ligne[2]);
                 articleActuel.Marque = marqueAcuelle;
-                if (!marques.Contains(marqueAcuelle))
-                {
-                    marques.Append(marqueAcuelle);
-                }
+                rez.ajouterMarque(marqueAcuelle);
 
                 SousFamille sousFamilleActuelle = new SousFamille(ligne[4]);
                 articleActuel.SousFamille = sousFamilleActuelle;
-                if (sousFamilles.Contains(sousFamilleActuelle))
-                {
-                    sousFamilles.Append(sousFamilleActuelle);
-                }
+                rez.ajouterSousFamille(sousFamilleActuelle);
 
-                Articles.Append(articleActuel);
+                rez.ajouterArticle(articleActuel);
 
             }
 
-            return Articles;
+            return rez;
         }
 
     }
