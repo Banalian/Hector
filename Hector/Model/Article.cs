@@ -11,6 +11,7 @@ namespace Hector.Model
         public String Description { get; set; }
         public String Reference { get; set; }
         public Marque Marque { get; set; }
+        public Famille Famille { get; set; }
         public SousFamille SousFamille { get; set; }
         public float PrixHT { get; set; }
 
