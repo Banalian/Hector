@@ -35,6 +35,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\System.Data.SQLite.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,7 +50,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\EditeurCSVcs.cs" />
+    <Compile Include="Controller\ConnectionDB.cs" />
+    <Compile Include="Controller\DAO\DAO.cs" />
+    <Compile Include="Controller\DAO\DAOArticles.cs" />
+    <Compile Include="Controller\DAO\DAOFamilles.cs" />
+    <Compile Include="Controller\DAO\DAOMarques.cs" />
+    <Compile Include="Controller\DAO\DAOSousFamille.cs" />
+    <Compile Include="Controller\EditeurCSV.cs" />
     <Compile Include="Controller\LecteurResultat.cs" />
     <Compile Include="FormImport.cs">
       <SubType>Form</SubType>
@@ -98,6 +108,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="System.Data.SQLite.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

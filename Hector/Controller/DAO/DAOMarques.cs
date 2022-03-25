@@ -100,13 +100,13 @@ namespace Hector.Controller.DAO
         /// Update une marque en changeant tout ses paramètres
         /// </summary>
         /// <param name="Entity"> La marque à modifier (son Id doit être celui de la marque que l'on modifie)</param>
-        public void UpdateById(Famille Entity)
+        public void UpdateById(Marque Entity)
         {
             var Conn = ConnectionDB.DBConnection;
             var St = Conn.CreateCommand();
             St.CommandText = "UPDATE Marques SET 'Nom'=@nom WHERE RefMarque=@id";
-            St.Parameters.AddWithValue("@nom", Entity.NomFamille);
-            St.Parameters.AddWithValue("@id", Entity.RefFamille);
+            St.Parameters.AddWithValue("@nom", Entity.NomMarque);
+            St.Parameters.AddWithValue("@id", Entity.RefMarque);
             St.ExecuteNonQuery();
         }
     }

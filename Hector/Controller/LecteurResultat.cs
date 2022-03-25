@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Hector.Controller
 {
-    class LecteurResultat
+    public class LecteurResultat
     {
         public List<Article> Articles { get; set; }
         public List<Marque> Marques { get; set; }

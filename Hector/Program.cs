@@ -21,7 +21,7 @@ namespace Hector
             Application.Run(new FormMain());
 
             
-            LecteurCSV lecteur = new LecteurCSV("C:\\Users\\Administrateur\\Downloads\\Données à intégrer.csv");
+            /*LecteurCSV lecteur = new LecteurCSV("C:\\Users\\Administrateur\\Downloads\\Données à intégrer.csv");
             LecteurResultat rez = new LecteurResultat();
             rez = lecteur.Lire();
 
@@ -32,7 +32,7 @@ namespace Hector
             editeur.Ecrire(rez.Articles);
 
 
-            Debug.WriteLine(rez);
+            Debug.WriteLine(rez);*/
 
         }
     }

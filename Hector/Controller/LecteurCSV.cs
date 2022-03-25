@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Hector.Controller
 {
-    class LecteurCSV
+    public class LecteurCSV
     {
         private String Chemin { get; set; }
         private StreamReader StreamReader { get; set; }
@@ -28,8 +28,7 @@ namespace Hector.Controller
 
         public LecteurResultat Lire()
         {
-
-            
+         
             Article articleActuel = new Article();
 
             LecteurResultat rez = new LecteurResultat();
@@ -42,9 +41,9 @@ namespace Hector.Controller
 
                 articleActuel = new Article(ligne[0], ligne[1], float.Parse(ligne[5]));
 
-                Famille familleActuelle = new Famille(ligne[3]);
+               /* Famille familleActuelle = new Famille(ligne[3]);
                 articleActuel.Famille = familleActuelle;
-                rez.ajouterFamille(familleActuelle);
+                rez.ajouterFamille(familleActuelle);*/
 
                 Marque marqueAcuelle = new Marque(ligne[2]);
                 articleActuel.Marque = marqueAcuelle;
