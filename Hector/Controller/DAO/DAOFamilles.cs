@@ -11,7 +11,7 @@ namespace Hector.Controller.DAO
     /// <summary>
     /// DAO permettant d'interagir avec la base de donnée pour la classe Famille
     /// </summary>
-    internal class DAOFamilles : DAO<Model.Famille>
+    public class DAOFamilles : DAO<Model.Famille>
     {
         /// <summary>
         /// Ajoute une nouvelle famille
@@ -45,7 +45,7 @@ namespace Hector.Controller.DAO
         /// <summary>
         /// Récupère une liste de toute les familles de la table.
         /// </summary>
-        /// <returns>Une liste contenant toute les familles contenant dans la table de la bdd</returns>
+        /// <returns>Une liste contenant toute les familles contenues dans la table de la bdd</returns>
         public List<Famille> GetAll()
         {
             var Conn = ConnectionDB.DBConnection;
