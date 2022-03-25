@@ -147,5 +147,16 @@ namespace Hector.Controller.DAO
             St.Parameters.AddWithValue("@id", Entity.Reference);
             St.ExecuteNonQuery();
         }
+
+        /// <summary>
+        /// Supprime tout les articles de la table
+        /// </summary>
+        public void DropDonnees()
+        {
+            var Conn = ConnectionDB.DBConnection;
+            var St = Conn.CreateCommand();
+            St.CommandText = "DELETE FROM Articles";
+            St.ExecuteNonQuery();
+        }
     }
 }

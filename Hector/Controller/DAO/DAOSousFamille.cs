@@ -117,5 +117,16 @@ namespace Hector.Controller.DAO
             St.Parameters.AddWithValue("@id", Entity.RefSousFamille);
             St.ExecuteNonQuery();
         }
+
+        /// <summary>
+        /// Supprime toutes les sous familles de la table
+        /// </summary>
+        public void DropDonnees()
+        {
+            var Conn = ConnectionDB.DBConnection;
+            var St = Conn.CreateCommand();
+            St.CommandText = "DELETE FROM SousFamilles";
+            St.ExecuteNonQuery();
+        }
     }
 }

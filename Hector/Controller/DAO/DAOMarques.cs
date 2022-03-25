@@ -109,5 +109,16 @@ namespace Hector.Controller.DAO
             St.Parameters.AddWithValue("@id", Entity.RefMarque);
             St.ExecuteNonQuery();
         }
+
+        /// <summary>
+        /// Supprime toutes les marques de la table
+        /// </summary>
+        public void DropDonnees()
+        {
+            var Conn = ConnectionDB.DBConnection;
+            var St = Conn.CreateCommand();
+            St.CommandText = "DELETE FROM Marques";
+            St.ExecuteNonQuery();
+        }
     }
 }

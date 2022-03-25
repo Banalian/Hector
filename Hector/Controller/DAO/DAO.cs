@@ -50,5 +50,10 @@ namespace Hector.Controller.DAO
         /// <param name="Entity">L'entitée à ajouter (avec tout ses paramètres)</param>
         /// <returns>Cette même entitée avec l'Id qui lui a été attribué par la bdd</returns>
         T Add(T Entity);
+
+        /// <summary>
+        /// Supprime toutes les données de la table
+        /// </summary>
+        void DropDonnees();
     }
 }

@@ -117,9 +117,34 @@ namespace Hector
 
         private void IntegrationEcrasementButton_Click(object sender, EventArgs e)
         {
-            // Ask the user for confirmation
-            // Drop all data
-            // then call IntegrationBoutton Click
+            // On demande confirmation à l'utilisateur
+            string Message = "Vous allez écraser toutes les données existantes.\nEtes-vous sûr de vouloir continuer ?";
+            string Legende = "Confirmation";
+            MessageBoxButtons Boutons = MessageBoxButtons.YesNo;
+
+            DialogResult Resultat = MessageBox.Show(Message, Legende, Boutons);
+
+            if (Resultat == DialogResult.No)
+            {
+                return;
+            }
+            // On drop les données de la base
+            Controller.DAO.DAOArticles DaoArticles = new Controller.DAO.DAOArticles();
+            DaoArticles.DropDonnees();
+
+            Controller.DAO.DAOSousFamilles DaoSousFamilles = new Controller.DAO.DAOSousFamilles();
+            DaoSousFamilles.DropDonnees();
+
+            Controller.DAO.DAOFamilles DaoFamilles = new Controller.DAO.DAOFamilles();
+            DaoFamilles.DropDonnees();
+
+            Controller.DAO.DAOMarques DaoMarques = new Controller.DAO.DAOMarques();
+            DaoMarques.DropDonnees();
+
+            
+
+            // On peux maintenant importer les données
+            IntegrationButton_Click(sender, e);
         }
     }
 }
