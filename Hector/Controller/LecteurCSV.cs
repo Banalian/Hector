@@ -17,17 +17,18 @@ namespace Hector.Controller
             Chemin = chemin;
             Separateurs = new List<char>();
             Separateurs.Add(';');
+            StreamReader = new StreamReader(Chemin,System.Text.Encoding.Default);
         }
         public LecteurCSV(String chemin,List<char> separateurs)
         {
             Chemin = chemin;
             Separateurs = separateurs;
+            StreamReader = new StreamReader(Chemin);
         }
 
         public LecteurResultat Lire()
         {
 
-            StreamReader = new StreamReader(Chemin);
             
             Article articleActuel = new Article();
 
