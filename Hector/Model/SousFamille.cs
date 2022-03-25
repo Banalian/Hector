@@ -12,6 +12,12 @@ namespace Hector.Model
         public Famille RefFamille { get; set; }
         public String NomSousFamille { get; set; }
 
+
+        public SousFamille()
+        {
+
+        }
+
         public SousFamille(String nom)
         {
 
