@@ -59,10 +59,8 @@ namespace Hector.Controller.DAO
                 SousFamille SousFamilleTemp = new SousFamille();
                 SousFamilleTemp.RefSousFamille = Reader.GetInt32(0);
                 // On utilise le DAO des familles pour trouver la bonne sous famille.
-                using (var DaoFamille = new DAOFamille())
-                {
-                    SousFamilleTemp.RefFamille = DaoFamille.GetById(Reader.GetInt32(1));
-                }
+                DAOFamilles DaoFamille = new DAOFamilles();
+                SousFamilleTemp.RefFamille = DaoFamille.GetById(Reader.GetInt32(1));
                 SousFamilleTemp.NomSousFamille = Reader.GetString(2);
                 List.Add(SousFamilleTemp);
             }
@@ -97,10 +95,8 @@ namespace Hector.Controller.DAO
             {
                 SousFamilleTemp.RefSousFamille = Reader.GetInt32(0);
                 // On utilise le DAO des familles pour trouver la bonne sous famille.
-                using (var DaoFamille = new DAOFamille())
-                {
-                    SousFamilleTemp.RefFamille = DaoFamille.GetById(Reader.GetInt32(1));
-                }
+                DAOFamilles DaoFamille = new DAOFamilles();
+                SousFamilleTemp.RefFamille = DaoFamille.GetById(Reader.GetInt32(1));
                 SousFamilleTemp.NomSousFamille = Reader.GetString(2);
             }
             return SousFamilleTemp;
@@ -115,9 +111,9 @@ namespace Hector.Controller.DAO
         {
             var Conn = ConnectionDB.DBConnection;
             var St = Conn.CreateCommand();
-            St.CommandText = "UPDATE SousFamilles SET RefFamille=@idFamille,Nom=@nom WHERE RefSousFamille=@id";
+            St.CommandText = "UPDATE SousFamilles SET 'RefFamille'=@idFamille,'Nom'=@nom WHERE RefSousFamille=@id";
             St.Parameters.AddWithValue("@idFamille", Entity.RefFamille.RefFamille);
-            St.Parameters.AddWithValue("@nom", Entity.NomFamille);
+            St.Parameters.AddWithValue("@nom", Entity.NomSousFamille);
             St.Parameters.AddWithValue("@id", Entity.RefSousFamille);
             St.ExecuteNonQuery();
         }

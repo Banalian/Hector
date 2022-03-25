@@ -11,7 +11,7 @@ namespace Hector.Controller.DAO
     /// <summary>
     /// DAO permettant d'interagir avec la base de donnée pour la classe Famille
     /// </summary>
-    public class DAOFamilles : DAO<Model.Famille>
+    internal class DAOFamilles : DAO<Model.Famille>
     {
         /// <summary>
         /// Ajoute une nouvelle famille
@@ -104,7 +104,7 @@ namespace Hector.Controller.DAO
         {
             var Conn = ConnectionDB.DBConnection;
             var St = Conn.CreateCommand();
-            St.CommandText = "UPDATE Familles SET nom=@nom WHERE RefFamille)@id";
+            St.CommandText = "UPDATE Familles SET 'Nom'=@nom WHERE RefFamille=@id";
             St.Parameters.AddWithValue("@nom", Entity.NomFamille);
             St.Parameters.AddWithValue("@id", Entity.RefFamille);
             St.ExecuteNonQuery();
