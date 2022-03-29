@@ -55,5 +55,11 @@ namespace Hector.Controller.DAO
         /// Supprime toutes les données de la table
         /// </summary>
         void DropDonnees();
+
+        /// <summary>
+        /// Récupere le dernier Id inséré dans la table
+        /// </summary>
+        /// <returns>le dernier Id inséré dans la table</returns>
+        int GetLastInsertedId();
     }
 }

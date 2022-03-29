@@ -171,5 +171,16 @@ namespace Hector.Controller.DAO
             St.CommandText = "DELETE FROM Articles";
             St.ExecuteNonQuery();
         }
+
+
+        /// <summary>
+        /// Récupere le dernier Id inséré dans la table
+        /// Ne pas utiliser pour cette table car elle utilise des clé en string
+        /// </summary>
+        /// <returns>le dernier Id inséré dans la table</returns>
+        public int GetLastInsertedId()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace Hector.Controller.DAO
             St.CommandText = "INSERT INTO Marques('nom') VALUES(@nom)";
             St.Parameters.AddWithValue("@nom", Entity.NomMarque);
             St.ExecuteNonQuery();
-            Entity.RefMarque = ConnectionDB.Dernier_Id_Insert();
+            Entity.RefMarque = GetLastInsertedId();
             return Entity;
         }
 
@@ -119,6 +119,18 @@ namespace Hector.Controller.DAO
             var St = Conn.CreateCommand();
             St.CommandText = "DELETE FROM Marques";
             St.ExecuteNonQuery();
+        }
+
+        /// <summary>
+        /// Récupere le dernier Id inséré dans la table
+        /// </summary>
+        /// <returns>le dernier Id inséré dans la table</returns>
+        public int GetLastInsertedId()
+        {
+            string sql = "select seq from sqlite_sequence where name='Marques';";
+            SQLiteCommand cmd = new SQLiteCommand(sql, ConnectionDB.DBConnection);
+            int newId = Convert.ToInt32(cmd.ExecuteScalar());
+            return newId;
         }
     }
 }

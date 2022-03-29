@@ -41,17 +41,6 @@ namespace Hector.Controller
             private set => _DBConnection = value; 
         }
 
-        public static int Dernier_Id_Insert()
-        {
-            string sql = "SELECT last_insert_rowid()";
-            SQLiteCommand cmd = new SQLiteCommand(sql, DBConnection);
-            int lastID = (Int32)cmd.ExecuteScalar();
-            return lastID;
-        }
-
-
-
-
 
     }
 }
