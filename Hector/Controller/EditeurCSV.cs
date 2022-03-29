@@ -25,7 +25,7 @@ namespace Hector.Controller
                 //inserer l'article dans le fichier
                 StreamWriter.WriteLine("{0};{1};{2};{3};{4}", articles[i].Description
                                                                 , articles[i].Reference.ToString()
-                                                                , articles[i].SousFamille.Famille.ToString()
+                                                                , articles[i].SousFamille.RefFamille.ToString()
                                                                 , articles[i].SousFamille.ToString()
                                                                 , articles[i].PrixHT
                                                                 );
