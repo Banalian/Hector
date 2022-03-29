@@ -49,7 +49,7 @@ namespace Hector.Controller
                 rez.ajouterMarque(marqueAcuelle);
 
                 SousFamille sousFamilleActuelle = new SousFamille(ligne[4]);
-                sousFamilleActuelle.RefFamille = familleActuelle.RefFamille;
+                sousFamilleActuelle.Famille = familleActuelle;
                 articleActuel.SousFamille = sousFamilleActuelle;
                 rez.ajouterSousFamille(sousFamilleActuelle);
 

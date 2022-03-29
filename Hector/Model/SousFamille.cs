@@ -9,7 +9,7 @@ namespace Hector.Model
     public class SousFamille
     {
         public int RefSousFamille { get; set; }
-        public int RefFamille { get; set; }
+        public Famille Famille { get; set; }
         public String NomSousFamille { get; set; }
 
 
