@@ -79,7 +79,7 @@ namespace Hector
                 Actuel++;
                 UpdateProgressBar(Total, Actuel);
             }
-
+            FixSousFamillesId(Resultat);
             Controller.DAO.DAOSousFamilles DaoSousFamilles = new Controller.DAO.DAOSousFamilles();
             foreach (Model.SousFamille SousFamille in Resultat.SousFamilles)
             {
@@ -111,6 +111,9 @@ namespace Hector
                 Actuel++;
                 UpdateProgressBar(Total, Actuel);
             }
+
+            FixArticlesVariablesId(Resultat);
+
 
             Controller.DAO.DAOArticles DaoArticles = new Controller.DAO.DAOArticles();
             foreach (Model.Article Article in Resultat.Articles)
@@ -195,5 +198,57 @@ namespace Hector
             // On peux maintenant importer les données
             IntegrationButton_Click(sender, e);
         }
+        
+        private void FixSousFamillesId(Controller.LecteurResultat Resultat)
+        {
+            foreach (Model.SousFamille SousFamille in Resultat.SousFamilles)
+            {
+                if (SousFamille.Famille.RefFamille == 0)
+                {
+                    foreach (Model.Famille Famille in Resultat.Familles)
+                    {
+                        if (Famille.NomFamille == SousFamille.Famille.NomFamille)
+                        {
+                            SousFamille.Famille.RefFamille = Famille.RefFamille;
+                            break;
+                        }
+                    }
+
+                }
+            }
+
+        }
+
+        private void FixArticlesVariablesId(Controller.LecteurResultat Resultat)
+        {
+            foreach (Model.Article Article in Resultat.Articles)
+            {
+                if (Article.Marque.RefMarque == 0)
+                {
+                    foreach (Model.Marque Marque in Resultat.Marques)
+                    {
+                        if (Marque.NomMarque == Article.Marque.NomMarque)
+                        {
+                            Article.Marque.RefMarque = Marque.RefMarque;
+                            break;
+                        }
+                    }
+
+                }
+                if (Article.SousFamille.RefSousFamille == 0)
+                {
+                    foreach (Model.SousFamille SousFamille in Resultat.SousFamilles)
+                    {
+                        if (SousFamille.NomSousFamille == Article.SousFamille.NomSousFamille)
+                        {
+                            Article.SousFamille.RefSousFamille = SousFamille.RefSousFamille;
+                            break;
+                        }
+                    }
+
+                }
+            }
+        }
+
     }
 }

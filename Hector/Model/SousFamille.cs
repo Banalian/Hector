@@ -33,7 +33,7 @@ namespace Hector.Model
         public override bool Equals(object sousFamille)
         {
             return RefSousFamille == ((SousFamille)sousFamille).RefSousFamille && 
-                   Famille == ((SousFamille)sousFamille).Famille &&
+                   Famille.Equals(((SousFamille)sousFamille).Famille)&&
                    NomSousFamille == ((SousFamille)sousFamille).NomSousFamille;
         }
 
