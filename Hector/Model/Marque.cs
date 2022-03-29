@@ -13,7 +13,8 @@ namespace Hector.Model
 
         public Marque()
         {
-
+            RefMarque = 0;
+            NomMarque = "";
         }
 
         public Marque(String nom)

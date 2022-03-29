@@ -61,11 +61,21 @@ namespace Hector
 
             int Total = CompterNombreElement(Resultat);
             int Actuel = 0;
+            int TotalErreur = 0;
+            Controller.LecteurResultat ResultatErreur = new Controller.LecteurResultat();
 
             Controller.DAO.DAOFamilles DaoFamilles = new Controller.DAO.DAOFamilles();
             foreach (Model.Famille Famille in Resultat.Familles)
             {
-                DaoFamilles.Add(Famille);
+                try
+                {
+                    DaoFamilles.Add(Famille);
+                }
+                catch (Exception)
+                {
+                    TotalErreur++;
+                    ResultatErreur.Familles.Add(Famille);
+                }
                 Actuel++;
                 UpdateProgressBar(Total, Actuel);
             }
@@ -73,7 +83,15 @@ namespace Hector
             Controller.DAO.DAOSousFamilles DaoSousFamilles = new Controller.DAO.DAOSousFamilles();
             foreach (Model.SousFamille SousFamille in Resultat.SousFamilles)
             {
-                DaoSousFamilles.Add(SousFamille);
+                try
+                {
+                    DaoSousFamilles.Add(SousFamille);
+                }
+                catch (Exception)
+                {
+                    TotalErreur++;
+                    ResultatErreur.SousFamilles.Add(SousFamille);
+                }
                 Actuel++;
                 UpdateProgressBar(Total, Actuel);
             }
@@ -81,7 +99,15 @@ namespace Hector
             Controller.DAO.DAOMarques DaoMarques = new Controller.DAO.DAOMarques();
             foreach (Model.Marque Marque in Resultat.Marques)
             {
-                DaoMarques.Add(Marque);
+                try
+                {
+                    DaoMarques.Add(Marque);
+                }
+                catch (Exception)
+                {
+                    TotalErreur++;
+                    ResultatErreur.Marques.Add(Marque);
+                }
                 Actuel++;
                 UpdateProgressBar(Total, Actuel);
             }
@@ -89,16 +115,39 @@ namespace Hector
             Controller.DAO.DAOArticles DaoArticles = new Controller.DAO.DAOArticles();
             foreach (Model.Article Article in Resultat.Articles)
             {
-                DaoArticles.Add(Article);
+                try
+                {
+                    DaoArticles.Add(Article);
+
+                }
+                catch (Exception)
+                {
+                    TotalErreur++;
+                    ResultatErreur.Articles.Add(Article);
+                }
                 Actuel++;
                 UpdateProgressBar(Total, Actuel);
             }
 
-            Message = "Réussite de l'import !";
-            Legende = "Success";
-            Boutons = MessageBoxButtons.OK;
+            if (TotalErreur > 0)
+            {
+                Message = "Il y a eu " + TotalErreur + " erreurs.\n";
+                Message += "Les Objets suivants n'ont pas pu être importés :\n";
+                Message += ResultatErreur.ToString();
+                Legende = "Erreurs";
+                Boutons = MessageBoxButtons.OK;
 
-            MessageBox.Show(Message, Legende, Boutons);
+                MessageBox.Show(Message, Legende, Boutons);
+            }
+            else
+            {
+                Message = "L'import s'est bien déroulé.";
+                Legende = "Import terminé";
+                Boutons = MessageBoxButtons.OK;
+
+                MessageBox.Show(Message, Legende, Boutons);
+            }
+
 
             this.Close();   
         }
