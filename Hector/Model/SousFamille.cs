@@ -15,12 +15,13 @@ namespace Hector.Model
 
         public SousFamille()
         {
-
+            RefSousFamille = 0;
+            NomSousFamille = "";
         }
 
         public SousFamille(String nom)
         {
-
+            RefSousFamille = 0;
             NomSousFamille = nom;
         }
 

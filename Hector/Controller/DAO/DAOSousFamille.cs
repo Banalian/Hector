@@ -20,10 +20,14 @@ namespace Hector.Controller.DAO
         /// <returns>Cette même sous famille avec l'Id qui lui a été attribué par la bdd</returns>
         public SousFamille Add(SousFamille Entity)
         {
+            if (Entity.Famille == null)
+            {
+                throw new Exception("La sous famille doit avoir une famille");
+            }
             var Conn = ConnectionDB.DBConnection;
             var St = Conn.CreateCommand();
             St.CommandText = "INSERT INTO SousFamilles('RefFamille','nom') VALUES(@idFamille, @nom)";
-            St.Parameters.AddWithValue("@idFamille", Entity.RefFamille.RefFamille);
+            St.Parameters.AddWithValue("@idFamille", Entity.Famille.RefFamille);
             St.Parameters.AddWithValue("@nom", Entity.NomSousFamille);
             St.ExecuteNonQuery();
             Entity.RefSousFamille = ConnectionDB.Dernier_Id_Insert();
@@ -60,7 +64,34 @@ namespace Hector.Controller.DAO
                 SousFamilleTemp.RefSousFamille = Reader.GetInt32(0);
                 // On utilise le DAO des familles pour trouver la bonne sous famille.
                 DAOFamilles DaoFamille = new DAOFamilles();
-                SousFamilleTemp.RefFamille = DaoFamille.GetById(Reader.GetInt32(1));
+                SousFamilleTemp.Famille = DaoFamille.GetById(Reader.GetInt32(1));
+                SousFamilleTemp.NomSousFamille = Reader.GetString(2);
+                List.Add(SousFamilleTemp);
+            }
+            return List;
+
+        }
+
+        /// <summary>
+        /// Récupère une liste de toute les sous familles de la table avec un id de famille donné.
+        /// </summary>
+        /// <param name="FamilleIdId">L'id de la famille dont on souhaite récupérer les sous familles</param>
+        /// <returns>Une liste contenant toute les sous familles avec un certain id de famille</returns>
+        public List<SousFamille> GetAll(int FamilleId)
+        {
+            var Conn = ConnectionDB.DBConnection;
+            var St = Conn.CreateCommand();
+            St.CommandText = "SELECT * FROM SousFamilles WHERE RefFamille=@id";
+            St.Parameters.AddWithValue("@id", FamilleId);
+            SQLiteDataReader Reader = St.ExecuteReader();
+            var List = new List<SousFamille>();
+            while (Reader.Read())
+            {
+                SousFamille SousFamilleTemp = new SousFamille();
+                SousFamilleTemp.RefSousFamille = Reader.GetInt32(0);
+                // On utilise le DAO des familles pour trouver la bonne sous famille.
+                DAOFamilles DaoFamille = new DAOFamilles();
+                SousFamilleTemp.Famille = DaoFamille.GetById(Reader.GetInt32(1));
                 SousFamilleTemp.NomSousFamille = Reader.GetString(2);
                 List.Add(SousFamilleTemp);
             }
@@ -96,7 +127,7 @@ namespace Hector.Controller.DAO
                 SousFamilleTemp.RefSousFamille = Reader.GetInt32(0);
                 // On utilise le DAO des familles pour trouver la bonne sous famille.
                 DAOFamilles DaoFamille = new DAOFamilles();
-                SousFamilleTemp.RefFamille = DaoFamille.GetById(Reader.GetInt32(1));
+                SousFamilleTemp.Famille = DaoFamille.GetById(Reader.GetInt32(1));
                 SousFamilleTemp.NomSousFamille = Reader.GetString(2);
             }
             return SousFamilleTemp;
@@ -112,7 +143,7 @@ namespace Hector.Controller.DAO
             var Conn = ConnectionDB.DBConnection;
             var St = Conn.CreateCommand();
             St.CommandText = "UPDATE SousFamilles SET 'RefFamille'=@idFamille,'Nom'=@nom WHERE RefSousFamille=@id";
-            St.Parameters.AddWithValue("@idFamille", Entity.RefFamille.RefFamille);
+            St.Parameters.AddWithValue("@idFamille", Entity.Famille.RefFamille);
             St.Parameters.AddWithValue("@nom", Entity.NomSousFamille);
             St.Parameters.AddWithValue("@id", Entity.RefSousFamille);
             St.ExecuteNonQuery();

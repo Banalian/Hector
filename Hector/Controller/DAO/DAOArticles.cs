@@ -20,6 +20,19 @@ namespace Hector.Controller.DAO
         /// <returns>Ce même article</returns>
         public Article Add(Article Entity)
         {
+            if (Entity.SousFamille == null)
+            {
+                throw new Exception("L'article doit avoir une sous famille");
+            }
+            if (Entity.SousFamille.Famille == null)
+            {
+                throw new Exception("La sous famille de l'article doit avoir une famille");
+            }
+            if (Entity.Marque == null)
+            {
+                throw new Exception("L'article doit avoir une marque");
+            }
+            
             var Conn = ConnectionDB.DBConnection;
             var St = Conn.CreateCommand();
             St.CommandText = "INSERT INTO Articles('RefArticle','Description','RefSousFamille','RefMarque','PrixHT', 'Quantite') VALUES(@refA,@desc,@refSF,@refM,@prix,@quantite)";
