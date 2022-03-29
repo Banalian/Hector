@@ -45,7 +45,7 @@ namespace Hector.Controller.DAO
         /// <summary>
         /// Récupère une liste de toute les familles de la table.
         /// </summary>
-        /// <returns>Une liste contenant toute les familles contenant dans la table de la bdd</returns>
+        /// <returns>Une liste contenant toute les familles contenues dans la table de la bdd</returns>
         public List<Famille> GetAll()
         {
             var Conn = ConnectionDB.DBConnection;
@@ -104,9 +104,20 @@ namespace Hector.Controller.DAO
         {
             var Conn = ConnectionDB.DBConnection;
             var St = Conn.CreateCommand();
-            St.CommandText = "UPDATE Familles SET nom=@nom WHERE RefFamille)@id";
+            St.CommandText = "UPDATE Familles SET 'Nom'=@nom WHERE RefFamille=@id";
             St.Parameters.AddWithValue("@nom", Entity.NomFamille);
             St.Parameters.AddWithValue("@id", Entity.RefFamille);
+            St.ExecuteNonQuery();
+        }
+
+        /// <summary>
+        /// Supprime toutes les familles de la table
+        /// </summary>
+        public void DropDonnees()
+        {
+            var Conn = ConnectionDB.DBConnection;
+            var St = Conn.CreateCommand();
+            St.CommandText = "DELETE FROM Familles";
             St.ExecuteNonQuery();
         }
     }

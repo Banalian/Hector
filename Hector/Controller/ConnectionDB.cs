@@ -11,32 +11,34 @@ namespace Hector.Controller
 {
     internal class ConnectionDB
     {
+
+        private static SQLiteConnection _DBConnection = null;
         public static SQLiteConnection DBConnection {
             get
             {
-                if (DBConnection == null)
+                if (_DBConnection == null)
                 {
                     try
                     {
-                        DBConnection = new SQLiteConnection("Data Source=" + Path.GetFullPath("Hector.SQLite") + ";Version=3;");
-                        DBConnection.Open();
-                        return DBConnection;
+                        _DBConnection = new SQLiteConnection("Data Source=" + Path.GetFullPath("Hector.SQLite") + ";Version=3;");
+                        _DBConnection.Open();
+                        return _DBConnection;
 
                     }
                     catch (Exception ex)
                     {
                         Debug.WriteLine(ex.Message);
-                        DBConnection = null;
+                        _DBConnection = null;
                         return null;
                     }
                 }
                 else
                 {
-                    return DBConnection;
+                    return _DBConnection;
                 }
             }
 
-            private set => DBConnection = value; 
+            private set => _DBConnection = value; 
         }
 
         public static int Dernier_Id_Insert()

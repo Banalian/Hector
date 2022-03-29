@@ -49,7 +49,7 @@
             this.SelectFIleButton.TabIndex = 0;
             this.SelectFIleButton.Text = "Selectionner un Fichier";
             this.SelectFIleButton.UseVisualStyleBackColor = true;
-            this.SelectFIleButton.Click += new System.EventHandler(this.SelectFIleButton_Click);
+            this.SelectFIleButton.Click += new System.EventHandler(this.SelectFileButton_Click);
             // 
             // labelNomFichier
             // 
@@ -69,6 +69,7 @@
             this.IntegrationEcrasementButton.TabIndex = 2;
             this.IntegrationEcrasementButton.Text = "Intégration (écrasement)";
             this.IntegrationEcrasementButton.UseVisualStyleBackColor = true;
+            this.IntegrationEcrasementButton.Click += new System.EventHandler(this.IntegrationEcrasementButton_Click);
             // 
             // IntegrationButton
             // 

@@ -11,9 +11,10 @@ namespace Hector.Model
         public String Description { get; set; }
         public String Reference { get; set; }
         public Marque Marque { get; set; }
-        public Famille Famille { get; set; }
         public SousFamille SousFamille { get; set; }
         public float PrixHT { get; set; }
+
+        public int Quantite { get; set; }
 
         public Article() {
             Description = "";
@@ -30,7 +31,7 @@ namespace Hector.Model
 
         public override string ToString()
         {
-            String rez = Description+" "+Reference+" "+Famille+" "+SousFamille;
+            String rez = Description+" "+Reference+" "+SousFamille;
             return rez;
         }
     }

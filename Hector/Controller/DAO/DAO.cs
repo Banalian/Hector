@@ -37,11 +37,11 @@ namespace Hector.Controller.DAO
         /// </summary>
         /// <param name="Id">l'Id de l'objet a supprimer</param>
         void DeleteById(int Id);
-        
+
         /// <summary>
         /// Récupère une liste de tout les objets de la table.
         /// </summary>
-        /// <returns>Une liste contenant tout les objets contenant dans la table de la bdd</returns>
+        /// <returns>Une liste contenant tout les objets contenus dans la table de la bdd</returns>
         List<T> GetAll();
 
         /// <summary>
@@ -50,5 +50,10 @@ namespace Hector.Controller.DAO
         /// <param name="Entity">L'entitée à ajouter (avec tout ses paramètres)</param>
         /// <returns>Cette même entitée avec l'Id qui lui a été attribué par la bdd</returns>
         T Add(T Entity);
+
+        /// <summary>
+        /// Supprime toutes les données de la table
+        /// </summary>
+        void DropDonnees();
     }
 }

@@ -11,6 +11,11 @@ namespace Hector.Model
         public int RefMarque { get; set; }
         public String NomMarque { get; set; }
 
+        public Marque()
+        {
+
+        }
+
         public Marque(String nom)
         {
             NomMarque = nom;
