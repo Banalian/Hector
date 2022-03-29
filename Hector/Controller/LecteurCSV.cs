@@ -27,7 +27,7 @@ namespace Hector.Controller
         public LecteurResultat Lire()
         {
 
-            StreamReader = new StreamReader(Chemin);
+            StreamReader = new StreamReader(Chemin, false, System.Text.Encoding.Default);
             
             Article articleActuel = new Article();
 
