@@ -9,7 +9,7 @@ namespace Hector.Model
     public class SousFamille
     {
         public int RefSousFamille { get; set; }
-        public Famille RefFamille { get; set; }
+        public Famille Famille { get; set; }
         public String NomSousFamille { get; set; }
 
         public SousFamille(String nom)
@@ -26,7 +26,7 @@ namespace Hector.Model
         public override bool Equals(object sousFamille)
         {
             return RefSousFamille == ((SousFamille)sousFamille).RefSousFamille && 
-                   RefFamille == ((SousFamille)sousFamille).RefFamille &&
+                   Famille == ((SousFamille)sousFamille).Famille &&
                    NomSousFamille == ((SousFamille)sousFamille).NomSousFamille;
         }
 

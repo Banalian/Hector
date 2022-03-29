@@ -42,7 +42,6 @@ namespace Hector.Controller
                 articleActuel = new Article(ligne[0], ligne[1], float.Parse(ligne[5]));
 
                 Famille familleActuelle = new Famille(ligne[3]);
-                articleActuel.Famille = familleActuelle;
                 rez.ajouterFamille(familleActuelle);
 
                 Marque marqueAcuelle = new Marque(ligne[2]);
@@ -50,6 +49,7 @@ namespace Hector.Controller
                 rez.ajouterMarque(marqueAcuelle);
 
                 SousFamille sousFamilleActuelle = new SousFamille(ligne[4]);
+                sousFamilleActuelle.Famille = familleActuelle;
                 articleActuel.SousFamille = sousFamilleActuelle;
                 rez.ajouterSousFamille(sousFamilleActuelle);
 
