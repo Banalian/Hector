@@ -12,19 +12,30 @@ namespace Hector
 {
     public partial class FormImport : Form
     {
-
+        /// <summary>
+        /// Nom du fichier à importer
+        /// </summary>
         private string NomDeFichier { get; set; }
         public FormImport()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Surcharge pour afficher la fenetre de dialogue au centre de son parent
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             this.CenterToParent();
         }
 
+        /// <summary>
+        /// Lors de la séléction du fichier on ouvre un OpenFileDialog pour choisir le fichier
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectFileButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog OpenFileDialog = new OpenFileDialog();
@@ -40,6 +51,12 @@ namespace Hector
                 }
             }
         }
+
+        /// <summary>
+        /// On va lire le fichier séléctionné pour importer les données dans notre bdd
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void IntegrationButton_Click(object sender, EventArgs e)
         {
             string Message;
@@ -155,18 +172,32 @@ namespace Hector
             this.Close();   
         }
 
-
+        /// <summary>
+        /// Mise à jour de la barre de progression selon le nombre d'item ajoutés
+        /// </summary>
+        /// <param name="NombreTotal"> nombre total d'item à ajouter à la bdd</param>
+        /// <param name="NombreActuel"> nombre actuel d'item ajoutés à la bdd</param>
         private void UpdateProgressBar(int NombreTotal, int NombreActuel)
         {
             int Progres = (int)(((float)NombreActuel / (float)NombreTotal)*100);
             progressBar1.Value = Progres;
         }
 
+        /// <summary>
+        /// Compteur pour définir le nombre total d'item à ajouter
+        /// </summary>
+        /// <param name="Resultat"></param>
+        /// <returns></returns>
         private int CompterNombreElement(Controller.LecteurResultat Resultat)
         {
             return Resultat.Familles.Count + Resultat.Marques.Count + Resultat.SousFamilles.Count + Resultat.Articles.Count;
         }
 
+        /// <summary>
+        /// Supprime les anciennes données avant d'ajouter les nouvelles
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void IntegrationEcrasementButton_Click(object sender, EventArgs e)
         {
             // On demande confirmation à l'utilisateur
@@ -199,6 +230,10 @@ namespace Hector
             IntegrationButton_Click(sender, e);
         }
         
+        /// <summary>
+        /// Fonctions pour réparer les id des familles des sous familles dans le résultat du lecteur
+        /// </summary>
+        /// <param name="Resultat"></param>
         private void FixSousFamillesId(Controller.LecteurResultat Resultat)
         {
             foreach (Model.SousFamille SousFamille in Resultat.SousFamilles)
@@ -219,6 +254,10 @@ namespace Hector
 
         }
 
+        /// <summary>
+        /// Fonctions pour réparer les id des objets dans les articles dans le résultat du lecteur
+        /// </summary>
+        /// <param name="Resultat"></param>
         private void FixArticlesVariablesId(Controller.LecteurResultat Resultat)
         {
             foreach (Model.Article Article in Resultat.Articles)

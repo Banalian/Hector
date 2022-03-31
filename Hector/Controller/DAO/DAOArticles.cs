@@ -92,8 +92,8 @@ namespace Hector.Controller.DAO
                 DAOMarques DaoMarques = new DAOMarques();
                 ArticleTemp.Marque = DaoMarques.GetById(Reader.GetInt32(3));
 
-                ArticleTemp.PrixHT = Reader.GetFloat(5);
-                ArticleTemp.Quantite = Reader.GetInt32(6);
+                ArticleTemp.PrixHT = Reader.GetFloat(4);
+                ArticleTemp.Quantite = Reader.GetInt32(5);
                 List.Add(ArticleTemp);
             }
             return List;
@@ -134,8 +134,8 @@ namespace Hector.Controller.DAO
                 DAOMarques DaoMarques = new DAOMarques();
                 ArticleTemp.Marque = DaoMarques.GetById(Reader.GetInt32(3));
 
-                ArticleTemp.PrixHT = Reader.GetFloat(5);
-                ArticleTemp.Quantite = Reader.GetInt32(6);
+                ArticleTemp.PrixHT = Reader.GetFloat(4);
+                ArticleTemp.Quantite = Reader.GetInt32(5);
             }
             return ArticleTemp;
 
@@ -172,6 +172,70 @@ namespace Hector.Controller.DAO
             St.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Récupere tout les articles d'une marque
+        /// </summary>
+        /// <param name="discriminateur"> la marque a utiliser pour trouver les articles </param>
+        /// <returns> une liste d'articles contenant tous les articles de cette marque </returns>
+        public List<Article> GetAllByMarque(Marque discriminateur)
+        {
+            var Conn = ConnectionDB.DBConnection;
+            var St = Conn.CreateCommand();
+            St.CommandText = "SELECT * FROM Articles WHERE RefMarque=@id";
+            St.Parameters.AddWithValue("@id", discriminateur.RefMarque);
+            SQLiteDataReader Reader = St.ExecuteReader();
+            var List = new List<Article>();
+            while (Reader.Read())
+            {
+                Article ArticleTemp = new Article();
+                ArticleTemp.Reference = Reader.GetString(0);
+                ArticleTemp.Description = Reader.GetString(1);
+
+                DAOSousFamilles DaoSousFamilles = new DAOSousFamilles();
+                ArticleTemp.SousFamille = DaoSousFamilles.GetById(Reader.GetInt32(2));
+
+                DAOMarques DaoMarques = new DAOMarques();
+                ArticleTemp.Marque = DaoMarques.GetById(Reader.GetInt32(3));
+
+                ArticleTemp.PrixHT = Reader.GetFloat(4);
+                ArticleTemp.Quantite = Reader.GetInt32(5);
+                List.Add(ArticleTemp);
+            }
+            return List;
+        }
+
+        /// <summary>
+        /// Récupere tout les articles d'une sous famille
+        /// </summary>
+        /// <param name="discriminateur"> la sous famille a utiliser pour trouver les articles </param>
+        /// <returns> une liste d'articles contenant tous les articles ayant cette sous famille</returns>
+        public List<Article> GetAllBySousFamille(SousFamille discriminateur)
+        {
+            var Conn = ConnectionDB.DBConnection;
+            var St = Conn.CreateCommand();
+            St.CommandText = "SELECT * FROM Articles WHERE RefSousFamille=@id";
+            St.Parameters.AddWithValue("@id", discriminateur.RefSousFamille);
+            SQLiteDataReader Reader = St.ExecuteReader();
+            var List = new List<Article>();
+            while (Reader.Read())
+            {
+                Article ArticleTemp = new Article();
+                ArticleTemp.Reference = Reader.GetString(0);
+                ArticleTemp.Description = Reader.GetString(1);
+
+                DAOSousFamilles DaoSousFamilles = new DAOSousFamilles();
+                ArticleTemp.SousFamille = DaoSousFamilles.GetById(Reader.GetInt32(2));
+
+                DAOMarques DaoMarques = new DAOMarques();
+                ArticleTemp.Marque = DaoMarques.GetById(Reader.GetInt32(3));
+
+                ArticleTemp.PrixHT = Reader.GetFloat(4);
+                ArticleTemp.Quantite = Reader.GetInt32(5);
+                List.Add(ArticleTemp);
+            }
+            return List;
+        }
+
 
         /// <summary>
         /// Récupere le dernier Id inséré dans la table
@@ -180,7 +244,9 @@ namespace Hector.Controller.DAO
         /// <returns>le dernier Id inséré dans la table</returns>
         public int GetLastInsertedId()
         {
-            throw new NotImplementedException();
+            throw new InvalidOperationException();
         }
+
+        
     }
 }
