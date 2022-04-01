@@ -30,5 +30,15 @@ namespace Hector.Model
             return NomFamille == ((Famille)famille).NomFamille &&
                    RefFamille == ((Famille)famille).RefFamille;
         }
+
+        public static bool operator <(Famille g, Famille d)
+        {
+            return (g.RefFamille < d.RefFamille);
+        }
+
+        public static bool operator >(Famille g, Famille d)
+        {
+            return (g.RefFamille > d.RefFamille);
+        }
     }
 }

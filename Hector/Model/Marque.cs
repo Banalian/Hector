@@ -31,5 +31,15 @@ namespace Hector.Model
         {
             return NomMarque == ((Marque) marque).NomMarque && RefMarque == ((Marque)marque).RefMarque;
         }
+        public static bool operator < (Marque g, Marque d)
+        {
+            return (g.RefMarque < d.RefMarque);
+        }
+
+        public static bool operator >(Marque g, Marque d)
+        {
+            return (g.RefMarque > d.RefMarque);
+        }
+
     }
 }
