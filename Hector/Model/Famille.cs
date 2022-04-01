@@ -33,12 +33,12 @@ namespace Hector.Model
 
         public static bool operator <(Famille g, Famille d)
         {
-            return (g.RefFamille < d.RefFamille);
+            return g.RefFamille < d.RefFamille;
         }
 
         public static bool operator >(Famille g, Famille d)
         {
-            return (g.RefFamille > d.RefFamille);
+            return g.RefFamille > d.RefFamille;
         }
     }
 }

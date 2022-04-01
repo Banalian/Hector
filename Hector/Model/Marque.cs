@@ -33,12 +33,12 @@ namespace Hector.Model
         }
         public static bool operator < (Marque g, Marque d)
         {
-            return (g.RefMarque < d.RefMarque);
+            return g.RefMarque < d.RefMarque;
         }
 
         public static bool operator >(Marque g, Marque d)
         {
-            return (g.RefMarque > d.RefMarque);
+            return g.RefMarque > d.RefMarque;
         }
 
     }
