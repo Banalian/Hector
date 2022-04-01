@@ -72,32 +72,6 @@ namespace Hector.Controller.DAO
 
         }
 
-        /// <summary>
-        /// Récupère une liste de toute les sous familles de la table avec un id de famille donné.
-        /// </summary>
-        /// <param name="FamilleIdId">L'id de la famille dont on souhaite récupérer les sous familles</param>
-        /// <returns>Une liste contenant toute les sous familles avec un certain id de famille</returns>
-        public List<SousFamille> GetAll(int FamilleId)
-        {
-            var Conn = ConnectionDB.DBConnection;
-            var St = Conn.CreateCommand();
-            St.CommandText = "SELECT * FROM SousFamilles WHERE RefFamille=@id";
-            St.Parameters.AddWithValue("@id", FamilleId);
-            SQLiteDataReader Reader = St.ExecuteReader();
-            var List = new List<SousFamille>();
-            while (Reader.Read())
-            {
-                SousFamille SousFamilleTemp = new SousFamille();
-                SousFamilleTemp.RefSousFamille = Reader.GetInt32(0);
-                // On utilise le DAO des familles pour trouver la bonne sous famille.
-                DAOFamilles DaoFamille = new DAOFamilles();
-                SousFamilleTemp.Famille = DaoFamille.GetById(Reader.GetInt32(1));
-                SousFamilleTemp.NomSousFamille = Reader.GetString(2);
-                List.Add(SousFamilleTemp);
-            }
-            return List;
-
-        }
 
         /// <summary>
         /// Récupere une SousFamille selon son id dans la base de données
@@ -170,6 +144,32 @@ namespace Hector.Controller.DAO
             SQLiteCommand cmd = new SQLiteCommand(sql, ConnectionDB.DBConnection);
             int newId = Convert.ToInt32(cmd.ExecuteScalar());
             return newId;
+        }
+
+        /// <summary>
+        /// Récupère une liste de toute les sous familles de la table avec un id de famille donné.
+        /// </summary>
+        /// <param name="discriminateur">la famille dont on souhaite récupérer les sous familles</param>
+        /// <returns>Une liste contenant toute les sous familles avec un certain id de famille</returns
+        internal List<SousFamille> GetAllByFamille(Famille discriminateur)
+        {
+            var Conn = ConnectionDB.DBConnection;
+            var St = Conn.CreateCommand();
+            St.CommandText = "SELECT * FROM SousFamilles WHERE RefFamille=@id";
+            St.Parameters.AddWithValue("@id", discriminateur.RefFamille);
+            SQLiteDataReader Reader = St.ExecuteReader();
+            var List = new List<SousFamille>();
+            while (Reader.Read())
+            {
+                SousFamille SousFamilleTemp = new SousFamille();
+                SousFamilleTemp.RefSousFamille = Reader.GetInt32(0);
+                // On utilise le DAO des familles pour trouver la bonne sous famille.
+                DAOFamilles DaoFamille = new DAOFamilles();
+                SousFamilleTemp.Famille = DaoFamille.GetById(Reader.GetInt32(1));
+                SousFamilleTemp.NomSousFamille = Reader.GetString(2);
+                List.Add(SousFamilleTemp);
+            }
+            return List;
         }
     }
 }

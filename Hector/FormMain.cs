@@ -51,16 +51,19 @@ namespace Hector
                     {
                         // On affiche la liste des articles de la marque
                         SetupArticleListView();
+                        ListViewFillData(ListViewDisplayType.ARTICLES, e.Node.Tag);
                     }
                     else if (e.Node.Tag.GetType() == typeof(Model.Famille))
                     {
                         // On affiche la liste des sous familles de la famille
                         SetupDescriptionListView();
+                        ListViewFillData(ListViewDisplayType.SOUSFAMILLES, e.Node.Tag);
                     }
                     else if (e.Node.Tag.GetType() == typeof(Model.SousFamille))
                     {
                         // On affiche la liste des articles de la sous famille
                         SetupArticleListView();
+                        ListViewFillData(ListViewDisplayType.ARTICLES, e.Node.Tag);
                     }
                     else 
                     {
@@ -83,12 +86,13 @@ namespace Hector
                     {
                         // On affiche toutes les familles
                         SetupDescriptionListView();
-                        
+                        ListViewFillData(ListViewDisplayType.FAMILLES, null);
                     }
                     else if (e.Node.Text == "Marques")
                     {
                         // On affiche toutes les marques
                         SetupDescriptionListView();
+                        ListViewFillData(ListViewDisplayType.MARQUES, null);
                     }
                     else
                     {
@@ -120,7 +124,7 @@ namespace Hector
                 TreeNode familleNode = new TreeNode(famille.NomFamille);
                 familleNode.Tag = famille;
                 treeView1.Nodes[1].Nodes.Add(familleNode);
-                foreach (Model.SousFamille sousFamille in DaoSousFamilles.GetAll(famille.RefFamille))
+                foreach (Model.SousFamille sousFamille in DaoSousFamilles.GetAllByFamille(famille))
                 {
                     TreeNode sousFamilleNode = new TreeNode(sousFamille.NomSousFamille);
                     sousFamilleNode.Tag = sousFamille;
@@ -203,35 +207,30 @@ namespace Hector
                     {
                         // On affiche tous les articles
                         Controller.DAO.DAOArticles DaoArticles = new Controller.DAO.DAOArticles();
-                        foreach (Model.Article article in DaoArticles.GetAll())
+                        foreach (Model.Article Article in DaoArticles.GetAll())
                         {
-                            ListViewItem item;
-                            string[] itemDesc = new string[5];
-                            itemDesc[0] = article.Description;
-                            itemDesc[1] = article.SousFamille.Famille.NomFamille;
-                            itemDesc[2] = article.SousFamille.NomSousFamille;
-                            itemDesc[3] = article.Marque.NomMarque;
-                            itemDesc[4] = article.Quantite.ToString();
-                            item = new ListViewItem(itemDesc);
-                            listView1.Items.Add(item);
+                            ListViewItem Item = CreerListeViewItemArticle(Article);
+                            listView1.Items.Add(Item);
                         }
                     }
                     else if (discriminateur.GetType() == typeof(Model.Marque))
                     {
                         // On affiche les articles d'une marque
                         Controller.DAO.DAOArticles DaoArticles = new Controller.DAO.DAOArticles();
-                        foreach (Model.Article article in DaoArticles.GetAllByMarque((Model.Marque)discriminateur))
+                        foreach (Model.Article Article in DaoArticles.GetAllByMarque((Model.Marque)discriminateur))
                         {
-
+                            ListViewItem Item = CreerListeViewItemArticle(Article);
+                            listView1.Items.Add(Item);
                         }
                     }
                     else if (discriminateur.GetType() == typeof(Model.SousFamille))
                     {
                         // On affiche les articles d'une sous famille
                         Controller.DAO.DAOArticles DaoArticles = new Controller.DAO.DAOArticles();
-                        foreach (Model.Article article in DaoArticles.GetAllBySousFamille((Model.SousFamille)discriminateur))
+                        foreach (Model.Article Article in DaoArticles.GetAllBySousFamille((Model.SousFamille)discriminateur))
                         {
-
+                            ListViewItem Item = CreerListeViewItemArticle(Article);
+                            listView1.Items.Add(Item);
                         }
                     }
                     else
@@ -240,17 +239,104 @@ namespace Hector
                     }
                     break;
                     
-                    
                 case ListViewDisplayType.FAMILLES:
+                    if (discriminateur == null)
+                    {
+                        Controller.DAO.DAOFamilles DaoFamilles = new Controller.DAO.DAOFamilles();
+                        foreach (Model.Famille Famille in DaoFamilles.GetAll())
+                        {
+                            ListViewItem Item = CreerListeViewItemDescription(Famille);
+                            listView1.Items.Add(Item);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erreur : Type de discriminateur non reconnu/non valide, type = " + discriminateur.GetType().ToString());
+                    }
                     break;
+                    
                 case ListViewDisplayType.SOUSFAMILLES:
+                    if (discriminateur == null)
+                    {
+                        Controller.DAO.DAOSousFamilles DaoSousFamilles = new Controller.DAO.DAOSousFamilles();
+                        foreach (Model.SousFamille SousFamille in DaoSousFamilles.GetAll())
+                        {
+                            ListViewItem Item = CreerListeViewItemDescription(SousFamille);
+                            listView1.Items.Add(Item);
+                        }
+                    }
+                    else if(discriminateur.GetType() == typeof(Model.Famille))
+                    {
+                        Controller.DAO.DAOSousFamilles DaoSousFamilles = new Controller.DAO.DAOSousFamilles();
+                        foreach (Model.SousFamille SousFamille in DaoSousFamilles.GetAllByFamille((Model.Famille)discriminateur))
+                        {
+                            ListViewItem Item = CreerListeViewItemDescription(SousFamille);
+                            listView1.Items.Add(Item);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erreur : Type de discriminateur non reconnu/non valide, type = " + discriminateur.GetType().ToString());
+                    }
                     break;
+                    
                 case ListViewDisplayType.MARQUES:
+                    if (discriminateur == null)
+                    {
+                        Controller.DAO.DAOMarques DaoMarques = new Controller.DAO.DAOMarques();
+                        foreach (Model.Marque Marque in DaoMarques.GetAll())
+                        {
+                            ListViewItem Item = CreerListeViewItemDescription(Marque);
+                            listView1.Items.Add(Item);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erreur : Type de discriminateur non reconnu/non valide, type = " + discriminateur.GetType().ToString());
+                    }
                     break;
+                    
                 default:
                     MessageBox.Show("Erreur : Type d'affichage non reconnu/non valide, type = " + Type.ToString());
                     break;
             }
+        }
+
+        private ListViewItem CreerListeViewItemArticle(Model.Article Article)
+        {
+            ListViewItem Item;
+            string[] ItemDesc = new string[5];
+            ItemDesc[0] = Article.Description;
+            ItemDesc[1] = Article.SousFamille.Famille.NomFamille;
+            ItemDesc[2] = Article.SousFamille.NomSousFamille;
+            ItemDesc[3] = Article.Marque.NomMarque;
+            ItemDesc[4] = Article.Quantite.ToString();
+            Item = new ListViewItem(ItemDesc);
+            return Item;
+        }
+
+        private ListViewItem CreerListeViewItemDescription(object Objet)
+        {
+            ListViewItem Item;
+            string[] ItemDesc = new string[1];
+            if(Objet.GetType() == typeof(Model.Famille))
+            {
+                ItemDesc[0] = ((Model.Famille)Objet).NomFamille;
+            }
+            else if(Objet.GetType() == typeof(Model.Marque))
+            {
+                ItemDesc[0] = ((Model.Marque)Objet).NomMarque;
+            }
+            else if (Objet.GetType() == typeof(Model.SousFamille))
+            {
+                ItemDesc[0] = ((Model.SousFamille)Objet).NomSousFamille;
+            }
+            else
+            {
+                return null;
+            }
+            Item = new ListViewItem(ItemDesc);
+            return Item;
         }
 
     }
