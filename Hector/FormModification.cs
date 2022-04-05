@@ -77,7 +77,105 @@ namespace Hector
                     }
             }
 
+            RemplirComboBox();
+            RemplirData();
 
+
+        }
+
+        private void RemplirComboBox()
+        {
+            switch (Type)
+            {
+                case FormMain.ListViewDisplayType.ARTICLES:
+                    {
+                        Controller.DAO.DAOMarques DaoMarques = new Controller.DAO.DAOMarques();
+                        Controller.DAO.DAOSousFamilles DaoSousFamilles = new Controller.DAO.DAOSousFamilles();
+
+                        List<Model.Marque> Marques = DaoMarques.GetAll();
+                        List<Model.SousFamille> SousFamilles = DaoSousFamilles.GetAll();
+
+                        List<string> MarquesString = new List<string>();
+                        List<string> SousFamillesString = new List<string>();
+
+                        foreach (Model.Marque Marque in Marques)
+                        {
+                            MarquesString.Add(Marque.NomMarque);
+                        }
+
+                        foreach (Model.SousFamille SousFamille in SousFamilles)
+                        {
+                            SousFamillesString.Add(SousFamille.NomSousFamille);
+                        }
+
+
+                        comboBoxMarque.DataSource = MarquesString;
+                        comboBoxSousFamille.DataSource = SousFamillesString;
+                        break;
+                    }
+                case FormMain.ListViewDisplayType.SOUSFAMILLES:
+                    {
+                        Controller.DAO.DAOFamilles DaoFamilles = new Controller.DAO.DAOFamilles();
+
+                        List<Model.Famille> Familles = DaoFamilles.GetAll();
+                        List<string> FamillesString = new List<string>();
+
+                        foreach (Model.Famille Famille in Familles)
+                        {
+                            FamillesString.Add(Famille.NomFamille);
+                        }
+
+                        comboBoxFamilleSousFamille.DataSource = FamillesString;
+                        break;
+                    }
+            }
+        }
+        
+
+        private void RemplirData()
+        {
+            switch (Type)
+            {
+                case FormMain.ListViewDisplayType.ARTICLES:
+                    {
+                        if (Objet != null)
+                        {
+                            Model.Article article = (Model.Article)Objet;
+                            textBoxDescription.Text = article.Description;
+                            numericUpDownQuantite.Value = article.Quantite;
+                        }
+                        break;
+                    }
+                case FormMain.ListViewDisplayType.MARQUES:
+                    {
+                        if (Objet != null)
+                        {
+                            Model.Marque marque = (Model.Marque)Objet;
+                            textBoxNomMarque.Text = marque.NomMarque;
+                        }
+                        break;
+                    }
+                case FormMain.ListViewDisplayType.FAMILLES:
+                    {
+                        if (Objet != null)
+                        {
+                            Model.Famille famille = (Model.Famille)Objet;
+                            textBoxNomFamille.Text = famille.NomFamille;
+                        }
+                        break;
+                    }
+                case FormMain.ListViewDisplayType.SOUSFAMILLES:
+                    {
+                        if (Objet != null)
+                        {
+                            Model.SousFamille sousFamille = (Model.SousFamille)Objet;
+                            textBoxNomSousFamille.Text = sousFamille.NomSousFamille;
+                            comboBoxFamilleSousFamille.Text = sousFamille.Famille.NomFamille;
+                        }
+                        break;
+                    }
+            }
+                
         }
 
         private void FormModification_Load(object sender, EventArgs e)

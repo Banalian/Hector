@@ -225,6 +225,7 @@ namespace Hector
                         foreach (Model.Article Article in DaoArticles.GetAll())
                         {
                             ListViewItem Item = CreerListeViewItemArticle(Article);
+                            Item.Tag = Article;
                             listView1.Items.Add(Item);
                         }
                     }
@@ -235,6 +236,7 @@ namespace Hector
                         foreach (Model.Article Article in DaoArticles.GetAllByMarque((Model.Marque)discriminateur))
                         {
                             ListViewItem Item = CreerListeViewItemArticle(Article);
+                            Item.Tag = Article;
                             listView1.Items.Add(Item);
                         }
                     }
@@ -245,6 +247,7 @@ namespace Hector
                         foreach (Model.Article Article in DaoArticles.GetAllBySousFamille((Model.SousFamille)discriminateur))
                         {
                             ListViewItem Item = CreerListeViewItemArticle(Article);
+                            Item.Tag = Article;
                             listView1.Items.Add(Item);
                         }
                     }
@@ -261,6 +264,7 @@ namespace Hector
                         foreach (Model.Famille Famille in DaoFamilles.GetAll())
                         {
                             ListViewItem Item = CreerListeViewItemDescription(Famille);
+                            Item.Tag = Famille;
                             listView1.Items.Add(Item);
                         }
                     }
@@ -277,6 +281,7 @@ namespace Hector
                         foreach (Model.SousFamille SousFamille in DaoSousFamilles.GetAll())
                         {
                             ListViewItem Item = CreerListeViewItemDescription(SousFamille);
+                            Item.Tag = SousFamille;
                             listView1.Items.Add(Item);
                         }
                     }
@@ -286,6 +291,7 @@ namespace Hector
                         foreach (Model.SousFamille SousFamille in DaoSousFamilles.GetAllByFamille((Model.Famille)discriminateur))
                         {
                             ListViewItem Item = CreerListeViewItemDescription(SousFamille);
+                            Item.Tag = SousFamille;
                             listView1.Items.Add(Item);
                         }
                     }
@@ -302,6 +308,7 @@ namespace Hector
                         foreach (Model.Marque Marque in DaoMarques.GetAll())
                         {
                             ListViewItem Item = CreerListeViewItemDescription(Marque);
+                            Item.Tag = Marque;
                             listView1.Items.Add(Item);
                         }
                     }
@@ -332,7 +339,7 @@ namespace Hector
 
         private ListViewItem CreerListeViewItemDescription(object Objet)
         {
-            ListViewItem Item;
+            ListViewItem Item;          
             string[] ItemDesc = new string[1];
             if (Objet.GetType() == typeof(Model.Famille))
             {
@@ -417,7 +424,12 @@ namespace Hector
 
         private void listView1_ItemSelected(object sender, MouseEventArgs e)
         {
-            FormModification FormModif = new FormModification(TypeAfficheActuel);
+            // On recupère l'objet sélectionné puis on recupere son tag pour obtenir l'objet contenu
+            ListViewItem Item = listView1.SelectedItems[0];
+            object Objet = Item.Tag;
+            
+            
+            FormModification FormModif = new FormModification(TypeAfficheActuel,2,Objet);
             FormModif.ShowDialog();
         }
 
