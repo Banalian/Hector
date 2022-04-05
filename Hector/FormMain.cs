@@ -22,6 +22,8 @@ namespace Hector
             // Connexion de l'evenement ListView.ColumnClick au handler  d'evenements ColumnClick.
             this.listView1.ColumnClick += new ColumnClickEventHandler(ColumnClick);
             listView1.Sorting = SortOrder.Ascending;
+
+            this.listView1.MouseClick += new MouseEventHandler(RightClick);
         }
 
         /// <summary>
@@ -359,10 +361,36 @@ namespace Hector
         /// <param name="e"> evenement click de la colonne</param>
         private void ColumnClick(object o, ColumnClickEventArgs e)
         {
-            // Set the ListViewItemSorter property to a new ListViewItemComparer 
-            // object. Setting this property immediately sorts the 
-            // ListView using the ListViewItemComparer object.
+            // On donne a la liste un nouveau Sorter qui se base sur la colonne clickee
             this.listView1.ListViewItemSorter = new ListViewItemComparer(e.Column);
+
+        }
+
+        private void RightClick(Object o, MouseEventArgs e)
+        {
+            switch (e.Button)
+            {
+                case MouseButtons.Right:
+                    {
+                        contextMenuStrip1.Show(MousePosition);// placement du menu a la positiojn du pointeur
+
+                        
+                        //Si aucun item n'est selectionné, les options de suppression et de modification sont grisées
+                        if (! listView1.ContainsFocus)
+                        {
+                            supprimerLélémentToolStripMenuItem.Enabled = false;
+                            modifierLélémentToolStripMenuItem.Enabled = false;
+                        }
+                        else
+                        {
+                            supprimerLélémentToolStripMenuItem.Enabled = true;
+                            modifierLélémentToolStripMenuItem.Enabled = true;
+
+                        }
+                        
+                    }
+                    break;
+            }
 
         }
         

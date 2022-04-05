@@ -15,9 +15,6 @@ namespace Hector
         private object Objet;
         private FormMain.ListViewDisplayType Type;
 
-
-   
-
         /// <summary>
         /// Constructeur de la fenêtre de modification/d'ajout
         /// </summary>

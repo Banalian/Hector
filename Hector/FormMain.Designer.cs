@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fichierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.actualiserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -37,11 +38,16 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ajouterUnElementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modifierLélémentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.supprimerLélémentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -130,6 +136,33 @@
             this.listView1.View = System.Windows.Forms.View.Details;
             this.listView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView1_ItemSelected);
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ajouterUnElementToolStripMenuItem,
+            this.modifierLélémentToolStripMenuItem,
+            this.supprimerLélémentToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(182, 92);
+            // 
+            // ajouterUnElementToolStripMenuItem
+            // 
+            this.ajouterUnElementToolStripMenuItem.Name = "ajouterUnElementToolStripMenuItem";
+            this.ajouterUnElementToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.ajouterUnElementToolStripMenuItem.Text = "Ajouter un élément";
+            // 
+            // modifierLélémentToolStripMenuItem
+            // 
+            this.modifierLélémentToolStripMenuItem.Name = "modifierLélémentToolStripMenuItem";
+            this.modifierLélémentToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.modifierLélémentToolStripMenuItem.Text = "Modifier l\'élément";
+            // 
+            // supprimerLélémentToolStripMenuItem
+            // 
+            this.supprimerLélémentToolStripMenuItem.Name = "supprimerLélémentToolStripMenuItem";
+            this.supprimerLélémentToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.supprimerLélémentToolStripMenuItem.Text = "Supprimer l\'élément";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -147,6 +180,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,6 +197,10 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem ajouterUnElementToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem modifierLélémentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem supprimerLélémentToolStripMenuItem;
     }
 }
 
