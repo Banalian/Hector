@@ -41,7 +41,7 @@ namespace Hector.Model
         //s by sousFamille
         //m by marque
         //NOTE: we may not need this method, we can just invoke list.OrderBy() with the appropriate parameters based on context
-        public void OrderBy(List<Article> liste, char sorter, char dir = 'a')
+        static public void OrderBy(List<Article> liste, char sorter, char dir = 'a')
         {
             Object sorterObj = new object();
             //ascending

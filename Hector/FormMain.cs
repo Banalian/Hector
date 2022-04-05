@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using static Hector.Model.Article;
+using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -8,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace Hector
 {
@@ -16,6 +18,10 @@ namespace Hector
         public FormMain()
         {
             InitializeComponent();
+
+            // Connexion de l'evenement ListView.ColumnClick au handler  d'evenements ColumnClick.
+            this.listView1.ColumnClick += new ColumnClickEventHandler(ColumnClick);
+            listView1.Sorting = SortOrder.Ascending;
         }
 
         /// <summary>
@@ -41,7 +47,7 @@ namespace Hector
         /// <param name="e"></param>
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if(e.Action != TreeViewAction.Expand && e.Action != TreeViewAction.Collapse)
+            if (e.Action != TreeViewAction.Expand && e.Action != TreeViewAction.Collapse)
             {
                 // On regarde si le node contient un tag
                 if (e.Node.Tag != null)
@@ -65,7 +71,7 @@ namespace Hector
                         SetupArticleListView();
                         ListViewFillData(ListViewDisplayType.ARTICLES, e.Node.Tag);
                     }
-                    else 
+                    else
                     {
                         MessageBox.Show("Erreur : Type de l'item non reconnu/non valide, type = " + e.Node.Tag.GetType().ToString());
                     }
@@ -238,7 +244,7 @@ namespace Hector
                         MessageBox.Show("Erreur : Type de discriminateur non reconnu/non valide, type = " + discriminateur.GetType().ToString());
                     }
                     break;
-                    
+
                 case ListViewDisplayType.FAMILLES:
                     if (discriminateur == null)
                     {
@@ -254,7 +260,7 @@ namespace Hector
                         MessageBox.Show("Erreur : Type de discriminateur non reconnu/non valide, type = " + discriminateur.GetType().ToString());
                     }
                     break;
-                    
+
                 case ListViewDisplayType.SOUSFAMILLES:
                     if (discriminateur == null)
                     {
@@ -265,7 +271,7 @@ namespace Hector
                             listView1.Items.Add(Item);
                         }
                     }
-                    else if(discriminateur.GetType() == typeof(Model.Famille))
+                    else if (discriminateur.GetType() == typeof(Model.Famille))
                     {
                         Controller.DAO.DAOSousFamilles DaoSousFamilles = new Controller.DAO.DAOSousFamilles();
                         foreach (Model.SousFamille SousFamille in DaoSousFamilles.GetAllByFamille((Model.Famille)discriminateur))
@@ -279,7 +285,7 @@ namespace Hector
                         MessageBox.Show("Erreur : Type de discriminateur non reconnu/non valide, type = " + discriminateur.GetType().ToString());
                     }
                     break;
-                    
+
                 case ListViewDisplayType.MARQUES:
                     if (discriminateur == null)
                     {
@@ -295,7 +301,7 @@ namespace Hector
                         MessageBox.Show("Erreur : Type de discriminateur non reconnu/non valide, type = " + discriminateur.GetType().ToString());
                     }
                     break;
-                    
+
                 default:
                     MessageBox.Show("Erreur : Type d'affichage non reconnu/non valide, type = " + Type.ToString());
                     break;
@@ -319,11 +325,11 @@ namespace Hector
         {
             ListViewItem Item;
             string[] ItemDesc = new string[1];
-            if(Objet.GetType() == typeof(Model.Famille))
+            if (Objet.GetType() == typeof(Model.Famille))
             {
                 ItemDesc[0] = ((Model.Famille)Objet).NomFamille;
             }
-            else if(Objet.GetType() == typeof(Model.Marque))
+            else if (Objet.GetType() == typeof(Model.Marque))
             {
                 ItemDesc[0] = ((Model.Marque)Objet).NomMarque;
             }
@@ -337,6 +343,39 @@ namespace Hector
             }
             Item = new ListViewItem(ItemDesc);
             return Item;
+        }
+
+        /// <summary>
+        /// Event handler de l'evenement ColumnClick
+        /// </summary>
+        /// <param name="o"> l'objet suur lequel on a clicke</param>
+        /// <param name="e"> evenement click de la colonne</param>
+        private void ColumnClick(object o, ColumnClickEventArgs e)
+        {
+            // Set the ListViewItemSorter property to a new ListViewItemComparer 
+            // object. Setting this property immediately sorts the 
+            // ListView using the ListViewItemComparer object.
+            this.listView1.ListViewItemSorter = new ListViewItemComparer(e.Column);
+
+        }
+        
+        // Implementation du Comparateur d'items par colonnes.
+        class ListViewItemComparer : IComparer
+        {
+            private int col;
+            public ListViewItemComparer()
+            {
+                col = 0;
+            }
+            public ListViewItemComparer(int column)
+            {
+                col = column;
+            }
+            public int Compare(object x, object y)
+            {
+                return String.Compare(((ListViewItem)x).SubItems[col].Text, ((ListViewItem)y).SubItems[col].Text);
+            }
+
         }
 
     }
