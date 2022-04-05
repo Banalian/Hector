@@ -110,6 +110,12 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormModification.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormModification.Designer.cs">
+      <DependentUpon>FormModification.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\Article.cs" />
     <Compile Include="Controller\LecteurCSV.cs" />
     <Compile Include="Model\Famille.cs" />
@@ -122,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormModification.resx">
+      <DependentUpon>FormModification.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
