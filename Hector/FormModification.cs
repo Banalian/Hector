@@ -27,6 +27,10 @@ namespace Hector
         public FormModification(FormMain.ListViewDisplayType type, int mode = 1, object obj = null)
         {
             InitializeComponent();
+            if(type == FormMain.ListViewDisplayType.NONVALIDE)
+            {
+                throw new Exception("Erreur : Type est non valide");
+            }
             if (mode == 2 && obj == null)
             {
                 throw new Exception("Erreur : mode 2 et objet null");

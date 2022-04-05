@@ -62,7 +62,7 @@ namespace Hector
                     else if (e.Node.Tag.GetType() == typeof(Model.Famille))
                     {
                         // On affiche la liste des sous familles de la famille
-                        SetupDescriptionListView();
+                        SetupDescriptionListView(ListViewDisplayType.SOUSFAMILLES);
                         ListViewFillData(ListViewDisplayType.SOUSFAMILLES, e.Node.Tag);
                     }
                     else if (e.Node.Tag.GetType() == typeof(Model.SousFamille))
@@ -91,13 +91,13 @@ namespace Hector
                     else if (e.Node.Text == "Familles")
                     {
                         // On affiche toutes les familles
-                        SetupDescriptionListView();
+                        SetupDescriptionListView(ListViewDisplayType.FAMILLES);
                         ListViewFillData(ListViewDisplayType.FAMILLES, null);
                     }
                     else if (e.Node.Text == "Marques")
                     {
                         // On affiche toutes les marques
-                        SetupDescriptionListView();
+                        SetupDescriptionListView(ListViewDisplayType.MARQUES);
                         ListViewFillData(ListViewDisplayType.MARQUES, null);
                     }
                     else
@@ -149,6 +149,19 @@ namespace Hector
 
 
         //--------------------------------------------- LIST VIEW ---------------------------------------------
+        /// <summary>
+        /// Enum pour définir le type de données à afficher dans la listView
+        /// </summary>
+        public enum ListViewDisplayType
+        {
+            ARTICLES,
+            FAMILLES,
+            SOUSFAMILLES,
+            MARQUES,
+            NONVALIDE
+        }
+        ListViewDisplayType TypeAfficheActuel = ListViewDisplayType.NONVALIDE;
+
 
         /// <summary>
         /// Vide la listView de toutes les données et colonnes
@@ -157,6 +170,7 @@ namespace Hector
         {
             listView1.Items.Clear();
             listView1.Columns.Clear();
+            TypeAfficheActuel = ListViewDisplayType.NONVALIDE;
         }
 
         /// <summary>
@@ -171,27 +185,20 @@ namespace Hector
             listView1.Columns.Add("SousFamilles", "Sous-familles", 100);
             listView1.Columns.Add("Marques", "Marques", 100);
             listView1.Columns.Add("Quantite", "Quantité", 100);
+
+            TypeAfficheActuel = ListViewDisplayType.ARTICLES;
         }
 
         /// <summary>
         /// Met en place la listView pour afficher les familles, sous familles ou marques
         /// </summary>
-        private void SetupDescriptionListView()
+        private void SetupDescriptionListView(ListViewDisplayType Type)
         {
             ViderListView();
             listView1.Columns.Add("Description", "Description", 100);
+            TypeAfficheActuel = Type;
         }
 
-        /// <summary>
-        /// Enum pour définir le type de données à afficher dans la listView
-        /// </summary>
-        private enum ListViewDisplayType
-        {
-            ARTICLES,
-            FAMILLES,
-            SOUSFAMILLES,
-            MARQUES
-        }
 
         /// <summary>
         /// Remplit la listView avec les données de la table en fonction du type et d'un potentiel discriminateur
@@ -377,6 +384,18 @@ namespace Hector
             }
 
         }
+
+
+
+        private void listView1_ItemSelected(object sender, MouseEventArgs e)
+        {
+            FormModification FormModif = new FormModification(TypeAfficheActuel);
+            FormModif.ShowDialog();
+        }
+
+
+
+
 
     }
 }
