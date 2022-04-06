@@ -24,6 +24,8 @@ namespace Hector
             listView1.Sorting = SortOrder.Ascending;
 
             this.listView1.MouseClick += new MouseEventHandler(RightClick);
+
+            ActualiserTreeView();
         }
 
         /// <summary>
