@@ -433,6 +433,10 @@ namespace Hector
             
             FormModification FormModif = new FormModification(TypeAfficheActuel,2,Objet);
             FormModif.ShowDialog();
+            if(FormModif.DialogResult == DialogResult.OK)
+            {
+                Debug.WriteLine(FormModif.returnObjet());
+            }
         }
 
 

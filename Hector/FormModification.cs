@@ -100,22 +100,12 @@ namespace Hector
                         List<Model.Marque> Marques = DaoMarques.GetAll();
                         List<Model.SousFamille> SousFamilles = DaoSousFamilles.GetAll();
 
-                        List<string> MarquesString = new List<string>();
-                        List<string> SousFamillesString = new List<string>();
+                        comboBoxMarque.DisplayMember = "NomMarque";
+                        comboBoxMarque.DataSource = Marques;
 
-                        foreach (Model.Marque Marque in Marques)
-                        {
-                            MarquesString.Add(Marque.NomMarque);
-                        }
+                        comboBoxSousFamille.DisplayMember = "NomSousFamille";
+                        comboBoxSousFamille.DataSource = SousFamilles;
 
-                        foreach (Model.SousFamille SousFamille in SousFamilles)
-                        {
-                            SousFamillesString.Add(SousFamille.NomSousFamille);
-                        }
-
-
-                        comboBoxMarque.DataSource = MarquesString;
-                        comboBoxSousFamille.DataSource = SousFamillesString;
                         break;
                     }
                 case FormMain.ListViewDisplayType.SOUSFAMILLES:
@@ -123,14 +113,9 @@ namespace Hector
                         Controller.DAO.DAOFamilles DaoFamilles = new Controller.DAO.DAOFamilles();
 
                         List<Model.Famille> Familles = DaoFamilles.GetAll();
-                        List<string> FamillesString = new List<string>();
 
-                        foreach (Model.Famille Famille in Familles)
-                        {
-                            FamillesString.Add(Famille.NomFamille);
-                        }
-
-                        comboBoxFamilleSousFamille.DataSource = FamillesString;
+                        comboBoxFamilleSousFamille.DisplayMember = "NomFamille";
+                        comboBoxFamilleSousFamille.DataSource = Familles;
                         break;
                     }
             }
@@ -206,6 +191,8 @@ namespace Hector
                         article.Quantite = (int)numericUpDownQuantite.Value;
                         article.Reference = textBoxReferenceArticle.Text;
                         // Ajouter la marque et la sous famille
+                        article.Marque = (Model.Marque)comboBoxMarque.SelectedItem;
+                        article.SousFamille = (Model.SousFamille)comboBoxSousFamille.SelectedItem;
                         break;
                     }
                 case FormMain.ListViewDisplayType.FAMILLES:
@@ -225,6 +212,7 @@ namespace Hector
                         Model.SousFamille sousFamille = (Model.SousFamille)Objet;
                         sousFamille.NomSousFamille = textBoxNomSousFamille.Text;
                         // Modifier la famille
+                        sousFamille.Famille = (Model.Famille)comboBoxFamilleSousFamille.SelectedItem;
                         break;
                     }
             }
@@ -249,6 +237,12 @@ namespace Hector
             ModifierObjetAvecResultatFormulaire();
             this.DialogResult = DialogResult.OK;
             this.Close();
+        }
+        
+        //TODO : Remplacer par un getter pour l'attribut Objet
+        public object returnObjet()
+        {
+            return Objet;
         }
     }
 }
