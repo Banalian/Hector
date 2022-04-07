@@ -127,7 +127,9 @@
             // 
             // listView1
             // 
+            this.listView1.ContextMenuStrip = this.contextMenuStrip1;
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView1.FullRowSelect = true;
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.Name = "listView1";
@@ -144,19 +146,22 @@
             this.modifierLélémentToolStripMenuItem,
             this.supprimerLélémentToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(182, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(182, 92);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // ajouterUnElementToolStripMenuItem
             // 
             this.ajouterUnElementToolStripMenuItem.Name = "ajouterUnElementToolStripMenuItem";
             this.ajouterUnElementToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.ajouterUnElementToolStripMenuItem.Text = "Ajouter un élément";
+            this.ajouterUnElementToolStripMenuItem.Click += new System.EventHandler(this.ajouterUnElementToolStripMenuItem_Click);
             // 
             // modifierLélémentToolStripMenuItem
             // 
             this.modifierLélémentToolStripMenuItem.Name = "modifierLélémentToolStripMenuItem";
             this.modifierLélémentToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.modifierLélémentToolStripMenuItem.Text = "Modifier l\'élément";
+            this.modifierLélémentToolStripMenuItem.Click += new System.EventHandler(this.modifierLélémentToolStripMenuItem_Click);
             // 
             // supprimerLélémentToolStripMenuItem
             // 

@@ -15,6 +15,7 @@ namespace Hector
         public object Objet { get; private set; }
         private FormMain.ListViewDisplayType Type;
         private int IdObjet;
+        private int Mode;
 
         /// <summary>
         /// Constructeur de la fenêtre de modification/d'ajout
@@ -43,6 +44,7 @@ namespace Hector
             {
                 buttonEnd.Text = "Modifier";
             }
+            this.Mode = mode;
 
 
             // On affiche uniquement le formulaire qui nous interesse
@@ -186,7 +188,16 @@ namespace Hector
             {
                 case FormMain.ListViewDisplayType.ARTICLES:
                     {
-                        Model.Article article = (Model.Article)Objet;
+                        Model.Article article;
+                        if (Mode == 1)
+                        {
+                            article = new Model.Article();
+                            Objet = article;
+                        }
+                        else
+                        {
+                            article = (Model.Article)Objet;
+                        }
                         article.Description = textBoxDescription.Text;
                         article.Quantite = (int)numericUpDownQuantite.Value;
                         article.Reference = textBoxReferenceArticle.Text;
@@ -197,19 +208,46 @@ namespace Hector
                     }
                 case FormMain.ListViewDisplayType.FAMILLES:
                     {
-                        Model.Famille famille = (Model.Famille)Objet;
+                        Model.Famille famille;
+                        if (Mode == 1)
+                        {
+                            famille = new Model.Famille();
+                            Objet = famille;
+                        }
+                        else
+                        {
+                            famille = (Model.Famille)Objet;
+                        }
                         famille.NomFamille = textBoxNomFamille.Text;
                         break;
                     }
                 case FormMain.ListViewDisplayType.MARQUES:
                     {
-                        Model.Marque marque = (Model.Marque)Objet;
+                        Model.Marque marque;
+                        if (Mode == 1)
+                        {
+                            marque = new Model.Marque();
+                            Objet = marque;
+                        }
+                        else
+                        {
+                            marque = (Model.Marque)Objet;
+                        }
                         marque.NomMarque = textBoxNomMarque.Text;
                         break;
                     }
                 case FormMain.ListViewDisplayType.SOUSFAMILLES:
                     {
-                        Model.SousFamille sousFamille = (Model.SousFamille)Objet;
+                        Model.SousFamille sousFamille;
+                        if (Mode == 1)
+                        {
+                            sousFamille = new Model.SousFamille();
+                            Objet = sousFamille;
+                        }
+                        else
+                        {
+                            sousFamille = (Model.SousFamille)Objet;
+                        }
                         sousFamille.NomSousFamille = textBoxNomSousFamille.Text;
                         // Modifier la famille
                         sousFamille.Famille = (Model.Famille)comboBoxFamilleSousFamille.SelectedItem;

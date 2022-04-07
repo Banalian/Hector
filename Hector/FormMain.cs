@@ -22,9 +22,7 @@ namespace Hector
             // Connexion de l'evenement ListView.ColumnClick au handler  d'evenements ColumnClick.
             this.listView1.ColumnClick += new ColumnClickEventHandler(ColumnClick);
             listView1.Sorting = SortOrder.Ascending;
-
-            this.listView1.MouseClick += new MouseEventHandler(RightClick);
-
+            
             ActualiserTreeView();
         }
 
@@ -326,6 +324,11 @@ namespace Hector
             }
         }
 
+        /// <summary>
+        /// Crée un item article pour la listView
+        /// </summary>
+        /// <param name="Article">L'article à utiliser pour l'item</param>
+        /// <returns>un nouvel item avec les informations de cet article</returns>
         private ListViewItem CreerListeViewItemArticle(Model.Article Article)
         {
             ListViewItem Item;
@@ -339,6 +342,11 @@ namespace Hector
             return Item;
         }
 
+        /// <summary>
+        /// Crée un item pour la listView avec une description (utile pour la famille, marque etc..)
+        /// </summary>
+        /// <param name="Article">L'objet à utiliser pour l'item</param>
+        /// <returns>un nouvel item avec le nom de cet objet, null si l'item n'a pas une classe connue</returns>
         private ListViewItem CreerListeViewItemDescription(object Objet)
         {
             ListViewItem Item;          
@@ -375,33 +383,8 @@ namespace Hector
 
         }
 
-        private void RightClick(Object o, MouseEventArgs e)
-        {
-            switch (e.Button)
-            {
-                case MouseButtons.Right:
-                    {
-                        contextMenuStrip1.Show(MousePosition);// placement du menu a la positiojn du pointeur
 
-                        
-                        //Si aucun item n'est selectionné, les options de suppression et de modification sont grisées
-                        if (! listView1.ContainsFocus)
-                        {
-                            supprimerLélémentToolStripMenuItem.Enabled = false;
-                            modifierLélémentToolStripMenuItem.Enabled = false;
-                        }
-                        else
-                        {
-                            supprimerLélémentToolStripMenuItem.Enabled = true;
-                            modifierLélémentToolStripMenuItem.Enabled = true;
-
-                        }
-                        
-                    }
-                    break;
-            }
-
-        }
+        
         
         // Implementation du Comparateur d'items par colonnes.
         class ListViewItemComparer : IComparer
@@ -483,6 +466,80 @@ namespace Hector
         private void actualiserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ActualiserTreeView();
+        }
+
+        /// <summary>
+        /// Event handler de l'evenement de l'ouverture du menu contextuel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+            //Si aucun item n'est selectionné, les options de suppression et de modification sont grisées
+            if (listView1.SelectedItems.Count > 0)
+            {
+                supprimerLélémentToolStripMenuItem.Enabled = true;
+                modifierLélémentToolStripMenuItem.Enabled = true;
+            }
+            else
+            {
+                supprimerLélémentToolStripMenuItem.Enabled = false;
+                modifierLélémentToolStripMenuItem.Enabled = false;
+
+            }
+        }
+
+        private void modifierLélémentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listView1_ItemSelected(sender, null);
+        }
+
+        private void ajouterUnElementToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormModification FormModif = new FormModification(TypeAfficheActuel, 1);
+            FormModif.ShowDialog();
+
+            if (FormModif.DialogResult == DialogResult.OK)
+            {
+                // On recupere le type de l'objet avant de l'inserer dans la BDD avec le DAO. Ensuite, on ajoute l'objet dans la liste avec les nouvelles données
+                if (FormModif.Objet.GetType() == typeof(Model.Article))
+                {
+                    Controller.DAO.DAOArticles DaoArticles = new Controller.DAO.DAOArticles();
+                    DaoArticles.Add((Model.Article)FormModif.Objet);
+                    ListViewItem Item = CreerListeViewItemArticle((Model.Article)FormModif.Objet);
+                    Item.Tag = FormModif.Objet;
+                    listView1.Items.Add(Item);
+                }
+                else if (FormModif.Objet.GetType() == typeof(Model.Famille))
+                {
+                    Controller.DAO.DAOFamilles DaoFamilles = new Controller.DAO.DAOFamilles();
+                    DaoFamilles.Add((Model.Famille)FormModif.Objet);
+                    ListViewItem Item = CreerListeViewItemDescription(FormModif.Objet);
+                    Item.Tag = FormModif.Objet;
+                    listView1.Items.Add(Item);
+                }
+                else if (FormModif.Objet.GetType() == typeof(Model.Marque))
+                {
+                    Controller.DAO.DAOMarques DaoMarques = new Controller.DAO.DAOMarques();
+                    DaoMarques.Add((Model.Marque)FormModif.Objet);
+                    ListViewItem Item = CreerListeViewItemDescription(FormModif.Objet);
+                    Item.Tag = FormModif.Objet;
+                    listView1.Items.Add(Item);
+                }
+                else if (FormModif.Objet.GetType() == typeof(Model.SousFamille))
+                {
+                    Controller.DAO.DAOSousFamilles DaoSousFamilles = new Controller.DAO.DAOSousFamilles();
+                    DaoSousFamilles.Add((Model.SousFamille)FormModif.Objet);
+                    ListViewItem Item = CreerListeViewItemDescription(FormModif.Objet);
+                    Item.Tag = FormModif.Objet;
+                    listView1.Items.Add(Item);
+                }
+                else
+                {
+                    MessageBox.Show("Erreur : Type de l'objet non reconnu/non valide, type = " + FormModif.Objet.GetType().ToString());
+                }
+            
+            }
         }
     }
 }
