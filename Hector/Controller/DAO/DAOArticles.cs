@@ -149,7 +149,7 @@ namespace Hector.Controller.DAO
         {
             var Conn = ConnectionDB.DBConnection;
             var St = Conn.CreateCommand();
-            St.CommandText = "UPDATE Marques SET 'Description'=@desc,'RefSousFamille'=@refSF,'RefMarque'=@refM,'PrixHT'=@prix, 'Quantite'=@quantite WHERE RefMarque=@id";
+            St.CommandText = "UPDATE Articles SET 'Description'=@desc,'RefSousFamille'=@refSF,'RefMarque'=@refM,'PrixHT'=@prix, 'Quantite'=@quantite WHERE RefArticle=@id";
 
             St.Parameters.AddWithValue("@desc", Entity.Description);
             St.Parameters.AddWithValue("@refSF", Entity.SousFamille.RefSousFamille);

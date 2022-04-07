@@ -73,20 +73,21 @@
             // actualiserToolStripMenuItem
             // 
             this.actualiserToolStripMenuItem.Name = "actualiserToolStripMenuItem";
-            this.actualiserToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.actualiserToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.actualiserToolStripMenuItem.Text = "Actualiser";
+            this.actualiserToolStripMenuItem.Click += new System.EventHandler(this.actualiserToolStripMenuItem_Click);
             // 
             // importerToolStripMenuItem
             // 
             this.importerToolStripMenuItem.Name = "importerToolStripMenuItem";
-            this.importerToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.importerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.importerToolStripMenuItem.Text = "Importer";
             this.importerToolStripMenuItem.Click += new System.EventHandler(this.importerToolStripMenuItem_Click);
             // 
             // exporterToolStripMenuItem
             // 
             this.exporterToolStripMenuItem.Name = "exporterToolStripMenuItem";
-            this.exporterToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.exporterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exporterToolStripMenuItem.Text = "Exporter";
             // 
             // statusStrip1
@@ -143,7 +144,7 @@
             this.modifierLélémentToolStripMenuItem,
             this.supprimerLélémentToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(182, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(182, 70);
             // 
             // ajouterUnElementToolStripMenuItem
             // 

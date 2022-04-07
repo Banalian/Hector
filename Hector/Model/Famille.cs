@@ -31,6 +31,18 @@ namespace Hector.Model
                    RefFamille == ((Famille)famille).RefFamille;
         }
 
+        /// <summary>
+        /// surchage automatique de GetHashCode()
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            int hashCode = 460557253;
+            hashCode = hashCode * -1521134295 + RefFamille.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(NomFamille);
+            return hashCode;
+        }
+
         public static bool operator <(Famille g, Famille d)
         {
             return g.RefFamille < d.RefFamille;

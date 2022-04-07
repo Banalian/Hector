@@ -12,7 +12,7 @@ namespace Hector
 {
     public partial class FormModification : Form
     {
-        private object Objet;
+        public object Objet { get; private set; }
         private FormMain.ListViewDisplayType Type;
         private int IdObjet;
 
@@ -239,10 +239,5 @@ namespace Hector
             this.Close();
         }
         
-        //TODO : Remplacer par un getter pour l'attribut Objet
-        public object returnObjet()
-        {
-            return Objet;
-        }
     }
 }

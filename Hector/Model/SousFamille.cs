@@ -36,6 +36,20 @@ namespace Hector.Model
                    Famille.Equals(((SousFamille)sousFamille).Famille)&&
                    NomSousFamille == ((SousFamille)sousFamille).NomSousFamille;
         }
+
+        /// <summary>
+        /// surchage automatique de GetHashCode()
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            int hashCode = 263456498;
+            hashCode = hashCode * -1521134295 + RefSousFamille.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<Famille>.Default.GetHashCode(Famille);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(NomSousFamille);
+            return hashCode;
+        }
+
         public static bool operator <(SousFamille g, SousFamille d)
         {
             return g.RefSousFamille < d.RefSousFamille;

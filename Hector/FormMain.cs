@@ -423,7 +423,11 @@ namespace Hector
         }
 
 
-
+        /// <summary>
+        /// Fonction de modification d'un élément de la liste. Ouvre une fenetre de modification de l'élément avant de le modifier dans la base de données et la liste.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listView1_ItemSelected(object sender, MouseEventArgs e)
         {
             // On recupère l'objet sélectionné puis on recupere son tag pour obtenir l'objet contenu
@@ -435,13 +439,50 @@ namespace Hector
             FormModif.ShowDialog();
             if(FormModif.DialogResult == DialogResult.OK)
             {
-                Debug.WriteLine(FormModif.returnObjet());
+                Debug.WriteLine(FormModif.Objet);
+                // On recupere le type de l'objet avant de le modifier dans la BDD avec le DAO. Ensuite, on change l'objet dans la liste avec les nouvelles données
+                if (Objet.GetType() == typeof(Model.Article))
+                {
+                    Controller.DAO.DAOArticles DaoArticles = new Controller.DAO.DAOArticles();
+                    DaoArticles.UpdateById((Model.Article)Objet);
+                    Item = CreerListeViewItemArticle((Model.Article)Objet);
+                    Item.Tag = Objet;
+                    listView1.Items[listView1.SelectedIndices[0]] = Item;
+                }
+                else if (Objet.GetType() == typeof(Model.Famille))
+                {
+                    Controller.DAO.DAOFamilles DaoFamilles = new Controller.DAO.DAOFamilles();
+                    DaoFamilles.UpdateById((Model.Famille)Objet);
+                    Item = CreerListeViewItemDescription(Objet);
+                    Item.Tag = Objet;
+                    listView1.Items[listView1.SelectedIndices[0]] = Item;
+                }
+                else if (Objet.GetType() == typeof(Model.Marque))
+                {
+                    Controller.DAO.DAOMarques DaoMarques = new Controller.DAO.DAOMarques();
+                    DaoMarques.UpdateById((Model.Marque)Objet);
+                    Item = CreerListeViewItemDescription(Objet);
+                    Item.Tag = Objet;
+                    listView1.Items[listView1.SelectedIndices[0]] = Item;
+                }
+                else if (Objet.GetType() == typeof(Model.SousFamille))
+                {
+                    Controller.DAO.DAOSousFamilles DaoSousFamilles = new Controller.DAO.DAOSousFamilles();
+                    DaoSousFamilles.UpdateById((Model.SousFamille)Objet);
+                    Item = CreerListeViewItemDescription(Objet);
+                    Item.Tag = Objet;
+                    listView1.Items[listView1.SelectedIndices[0]] = Item;
+                }
+                else
+                {
+                    MessageBox.Show("Erreur : Type de l'objet non reconnu/non valide, type = " + Objet.GetType().ToString());
+                }
             }
         }
 
-
-
-
-
+        private void actualiserToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ActualiserTreeView();
+        }
     }
 }

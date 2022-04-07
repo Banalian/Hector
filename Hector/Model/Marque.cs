@@ -31,6 +31,19 @@ namespace Hector.Model
         {
             return NomMarque == ((Marque) marque).NomMarque && RefMarque == ((Marque)marque).RefMarque;
         }
+
+        /// <summary>
+        /// surchage automatique de GetHashCode()
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            int hashCode = 277225159;
+            hashCode = hashCode * -1521134295 + RefMarque.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(NomMarque);
+            return hashCode;
+        }
+
         public static bool operator < (Marque g, Marque d)
         {
             return g.RefMarque < d.RefMarque;
