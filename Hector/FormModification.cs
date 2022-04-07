@@ -90,6 +90,9 @@ namespace Hector
 
         }
 
+        /// <summary>
+        /// Remplit les choix des combobox si besoin pour l'objet
+        /// </summary>
         private void RemplirComboBox()
         {
             switch (Type)
@@ -123,7 +126,9 @@ namespace Hector
             }
         }
 
-
+        /// <summary>
+        /// Pré-remplit les données du formulaire si elles existent
+        /// </summary>
         private void RemplirData()
         {
             switch (Type)
@@ -181,7 +186,9 @@ namespace Hector
 
         }
 
-
+        /// <summary>
+        /// Modifie l'objet avec les informations du formulaire
+        /// </summary>
         private void ModifierObjetAvecResultatFormulaire()
         {
             switch (Type)
@@ -256,12 +263,65 @@ namespace Hector
             }
         }
 
-
-        private void FormModification_Load(object sender, EventArgs e)
+        /// <summary>
+        /// Permet de vérifier la validité de l'objet, en vérifiant si tout les paramètres sont bien set.
+        /// </summary>
+        /// <returns> true si l'objet est valide, false sinon</returns>
+        private bool VerifierValiditeObjet()
         {
+            bool Valide = true;
+            switch (Type)
+            {
+                case FormMain.ListViewDisplayType.ARTICLES:
+                    {
+                        Model.Article Article = (Model.Article)Objet;
+                        if (Article.Description == "" || Article.Reference == "" || Article.Marque == null || Article.SousFamille == null)
+                        {
+                            Valide = false;
+                        }
 
+                        break;
+                    }
+                case FormMain.ListViewDisplayType.FAMILLES:
+                    {
+                        Model.Famille Famille = (Model.Famille)Objet;
+                        if (Famille.NomFamille == "")
+                        {
+                            Valide = false;
+                        }
+                        break;
+                    }
+                case FormMain.ListViewDisplayType.SOUSFAMILLES:
+                    {
+                        Model.SousFamille SousFamille = (Model.SousFamille)Objet;
+                        if (SousFamille.NomSousFamille == "" || SousFamille.Famille == null)
+                        {
+                            Valide = false;
+                        }
+                        break;
+                    }
+                case FormMain.ListViewDisplayType.MARQUES:
+                    {
+                        Model.Marque Marque = (Model.Marque)Objet;
+                        if (Marque.NomMarque == "")
+                        {
+                            Valide = false;
+                        }
+                        break;
+                    }
+
+
+            }
+
+            return Valide;
         }
 
+
+        /// <summary>
+        /// Event handler pour le bouton d'annulation. ferme le formulaire
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonAnnuler_Click(object sender, EventArgs e)
         {
             // On ferme la fenêtre
@@ -269,12 +329,25 @@ namespace Hector
             this.Close();
         }
 
+        /// <summary>
+        /// Event handler pour le bouton de fin. Va modifier l'objet et vérifier sa validité avant de fermer le formulaire.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonEnd_Click(object sender, EventArgs e)
         {
             // On ferme la fenêtre et on envoie le résultat
             ModifierObjetAvecResultatFormulaire();
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            if (VerifierValiditeObjet())
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Objet non valide. Pensez à remplir tout les paramètres. Rien ne peut être vide.");
+            }
+            
         }
         
     }

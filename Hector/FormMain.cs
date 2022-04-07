@@ -40,6 +40,17 @@ namespace Hector
             ActualiserTreeView();
         }
 
+
+        /// <summary>
+        /// Event handler de l'evenement du bouton "actualiser"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void actualiserToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ActualiserTreeView();
+        }
+
         //--------------------------------------------- TREE VIEW ---------------------------------------------
 
         /// <summary>
@@ -371,6 +382,9 @@ namespace Hector
             return Item;
         }
 
+        // --------------- Tri ---------------
+
+
         /// <summary>
         /// Event handler de l'evenement ColumnClick
         /// </summary>
@@ -383,8 +397,6 @@ namespace Hector
 
         }
 
-
-        
         
         // Implementation du Comparateur d'items par colonnes.
         class ListViewItemComparer : IComparer
@@ -405,6 +417,7 @@ namespace Hector
 
         }
 
+        // -------------------------- Modification/Ajout/Delete --------------------------
 
         /// <summary>
         /// Fonction de modification d'un élément de la liste. Ouvre une fenetre de modification de l'élément avant de le modifier dans la base de données et la liste.
@@ -463,11 +476,6 @@ namespace Hector
             }
         }
 
-        private void actualiserToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ActualiserTreeView();
-        }
-
         /// <summary>
         /// Event handler de l'evenement de l'ouverture du menu contextuel
         /// </summary>
@@ -484,16 +492,25 @@ namespace Hector
             else
             {
                 supprimerLélémentToolStripMenuItem.Enabled = false;
-                modifierLélémentToolStripMenuItem.Enabled = false;
-
+                modifierLélémentToolStripMenuItem.Enabled = false
             }
         }
 
+        /// <summary>
+        /// Event handler de l'evenement de la modification d'un élément de la liste
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void modifierLélémentToolStripMenuItem_Click(object sender, EventArgs e)
         {
             listView1_ItemSelected(sender, null);
         }
 
+        /// <summary>
+        /// Event handler de l'evenement de l'ajout d'un element
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ajouterUnElementToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormModification FormModif = new FormModification(TypeAfficheActuel, 1);
@@ -517,6 +534,10 @@ namespace Hector
                     ListViewItem Item = CreerListeViewItemDescription(FormModif.Objet);
                     Item.Tag = FormModif.Objet;
                     listView1.Items.Add(Item);
+                    // On ajoute également la famille dans le TreeView
+                    TreeNode Famille = new TreeNode(((Model.Famille)FormModif.Objet).NomFamille);
+                    Famille.Tag = FormModif.Objet;
+                    treeView1.Nodes[1].Nodes.Add(Famille);
                 }
                 else if (FormModif.Objet.GetType() == typeof(Model.Marque))
                 {
@@ -525,6 +546,10 @@ namespace Hector
                     ListViewItem Item = CreerListeViewItemDescription(FormModif.Objet);
                     Item.Tag = FormModif.Objet;
                     listView1.Items.Add(Item);
+                    // On ajoute également la marque dans le TreeView
+                    TreeNode Marque = new TreeNode(((Model.Marque)FormModif.Objet).NomMarque);
+                    Marque.Tag = FormModif.Objet;
+                    treeView1.Nodes[2].Nodes.Add(Marque);
                 }
                 else if (FormModif.Objet.GetType() == typeof(Model.SousFamille))
                 {
@@ -533,6 +558,18 @@ namespace Hector
                     ListViewItem Item = CreerListeViewItemDescription(FormModif.Objet);
                     Item.Tag = FormModif.Objet;
                     listView1.Items.Add(Item);
+                    // On ajoute également la sous famille dans le TreeView
+                    TreeNode SousFamille = new TreeNode(((Model.SousFamille)FormModif.Objet).NomSousFamille);
+                    SousFamille.Tag = FormModif.Objet;
+                    //On cherche la famille parente de la sous famille
+                    foreach (TreeNode Famille in treeView1.Nodes[1].Nodes)
+                    {
+                        if (((Model.SousFamille)FormModif.Objet).Famille == ((Model.Famille)Famille.Tag))
+                        {
+                            Famille.Nodes.Add(SousFamille);
+                            break;
+                        }
+                    }
                 }
                 else
                 {

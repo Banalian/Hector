@@ -365,7 +365,6 @@
             this.Controls.Add(this.panelGeneral);
             this.Name = "FormModification";
             this.Text = "FormModification";
-            this.Load += new System.EventHandler(this.FormModification_Load);
             this.panelGeneral.ResumeLayout(false);
             this.tableLayoutPanelSousFamille.ResumeLayout(false);
             this.tableLayoutPanelSousFamille.PerformLayout();
