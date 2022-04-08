@@ -32,6 +32,7 @@ namespace Hector
 
             // On actualise le treeView
             ActualiserTreeView();
+            ViderListView();
         }
 
 

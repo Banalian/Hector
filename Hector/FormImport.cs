@@ -16,6 +16,7 @@ namespace Hector
         /// Nom du fichier à importer
         /// </summary>
         private string NomDeFichier { get; set; }
+        public bool Ecrasement { get; private set; }
         public FormImport()
         {
             InitializeComponent();
@@ -29,6 +30,8 @@ namespace Hector
         {
             base.OnLoad(e);
             this.CenterToParent();
+            Ecrasement = false;
+
         }
 
         /// <summary>
@@ -168,7 +171,6 @@ namespace Hector
                 MessageBox.Show(Message, Legende, Boutons);
             }
 
-
             this.Close();   
         }
 
@@ -200,10 +202,24 @@ namespace Hector
         /// <param name="e"></param>
         private void IntegrationEcrasementButton_Click(object sender, EventArgs e)
         {
+            string Message;
+            string Legende;
+            MessageBoxButtons Boutons;
+            
+            if (NomDeFichier == null)
+            {
+                Message = "Vous n'avez pas choisi de fichier.";
+                Legende = "Pas de fichier choisi";
+                Boutons = MessageBoxButtons.OK;
+
+                MessageBox.Show(Message, Legende, Boutons);
+                return;
+            }
+
             // On demande confirmation à l'utilisateur
-            string Message = "Vous allez écraser toutes les données existantes.\nEtes-vous sûr de vouloir continuer ?";
-            string Legende = "Confirmation";
-            MessageBoxButtons Boutons = MessageBoxButtons.YesNo;
+            Message = "Vous allez écraser toutes les données existantes.\nEtes-vous sûr de vouloir continuer ?";
+            Legende = "Confirmation";
+            Boutons = MessageBoxButtons.YesNo;
 
             DialogResult Resultat = MessageBox.Show(Message, Legende, Boutons);
 
@@ -224,7 +240,7 @@ namespace Hector
             Controller.DAO.DAOMarques DaoMarques = new Controller.DAO.DAOMarques();
             DaoMarques.DropDonnees();
 
-            
+            Ecrasement = true;
 
             // On peux maintenant importer les données
             IntegrationButton_Click(sender, e);
