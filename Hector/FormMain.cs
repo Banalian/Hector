@@ -595,7 +595,7 @@ namespace Hector
         }
 
         /// <summary>
-        /// Event handler de l'evenement de la suppression d'un élément.
+        /// Event handler de l'evenement de la suppression d'un élément. Supprime l'élément de la listView et TreeView, après confirmation, et supprime tout les 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -606,8 +606,17 @@ namespace Hector
             // On supprime l'objet de la BDD avec le DAO correspondant
             if (ObjetASupprimer.GetType() == typeof(Model.Article))
             {
-                Controller.DAO.DAOArticles DaoArticles = new Controller.DAO.DAOArticles();
-                DaoArticles.DeleteById(((Model.Article)ObjetASupprimer).Reference);
+                DialogResult Resultat = MessageBox.Show("Voulez-vous vraiment supprimer l'article " + ((Model.Article)ObjetASupprimer).Description + " ?", "Suppression", MessageBoxButtons.YesNo);
+                if(Resultat == DialogResult.Yes)
+                {
+                    Controller.DAO.DAOArticles DaoArticles = new Controller.DAO.DAOArticles();
+                    DaoArticles.DeleteById(((Model.Article)ObjetASupprimer).Reference);
+                }
+                else
+                {
+                    return;
+                }
+                
             }
             else if (ObjetASupprimer.GetType() == typeof(Model.Famille))
             {
@@ -617,6 +626,10 @@ namespace Hector
                     //TODO : Supprimer les sous familles et articles correspondantes
                     Controller.DAO.DAOFamilles DaoFamilles = new Controller.DAO.DAOFamilles();
                     DaoFamilles.DeleteById(((Model.Famille)ObjetASupprimer).RefFamille);
+                }
+                else
+                {
+                    return;
                 }
             }
             else if (ObjetASupprimer.GetType() == typeof(Model.Marque))
@@ -628,6 +641,10 @@ namespace Hector
                     Controller.DAO.DAOMarques DaoMarques = new Controller.DAO.DAOMarques();
                     DaoMarques.DeleteById(((Model.Marque)ObjetASupprimer).RefMarque);
                 }
+                else
+                {
+                    return;
+                }
             }
             else if (ObjetASupprimer.GetType() == typeof(Model.SousFamille))
             {
@@ -637,6 +654,10 @@ namespace Hector
                     //TODO : Supprimer les articles de la sous famille
                     Controller.DAO.DAOSousFamilles DaoSousFamilles = new Controller.DAO.DAOSousFamilles();
                     DaoSousFamilles.DeleteById(((Model.SousFamille)ObjetASupprimer).RefSousFamille);
+                }
+                else
+                {
+                    return;
                 }
             }
             else
