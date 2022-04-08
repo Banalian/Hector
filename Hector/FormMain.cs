@@ -12,10 +12,31 @@ namespace Hector
 {
     public partial class FormMain : Form
     {
+
+        /// <summary>
+        /// Le nombre d'article actuellement dans la base
+        /// </summary>
+        private int NbArticlesActuel;
+        /// <summary>
+        /// Le nombre de marques actuellement dans la base
+        /// </summary>
+        private int NbMarquesActuel;
+        /// <summary>
+        /// Le nombre de familles actuellement dans la base
+        /// </summary>
+        private int NbFamillesActuel;
+        /// <summary>
+        /// Le nombre de sous familles actuellement dans la base
+        /// </summary>
+        private int NbSousFamillesActuel;
+        
         public FormMain()
         {
             InitializeComponent();
-
+            NbArticlesActuel = 0;
+            NbMarquesActuel = 0;
+            NbFamillesActuel = 0;
+            NbSousFamillesActuel = 0;
             // Connexion de l'evenement ListView.ColumnClick au handler  d'evenements ColumnClick.
             this.listView1.ColumnClick += new ColumnClickEventHandler(ColumnClick);
             listView1.Sorting = SortOrder.Ascending;
@@ -23,6 +44,8 @@ namespace Hector
             this.exporterToolStripMenuItem.Click += new EventHandler(exporterToolStripMenuItem_Click);
             
             ActualiserTreeView();
+            ActualiserNombreTotaux();
+            ActualiserStatusStrip();
         }
 
 
@@ -38,6 +61,8 @@ namespace Hector
             // On actualise le treeView
             ActualiserTreeView();
             ViderListView();
+            ActualiserNombreTotaux();
+            ActualiserStatusStrip();
         }
 
 
@@ -492,7 +517,6 @@ namespace Hector
             FormModif.ShowDialog();
             if(FormModif.DialogResult == DialogResult.OK)
             {
-                Debug.WriteLine(FormModif.Objet);
                 // On recupere le type de l'objet avant de le modifier dans la BDD avec le DAO. Ensuite, on change l'objet dans la liste avec les nouvelles données
                 if (Objet.GetType() == typeof(Model.Article))
                 {
@@ -634,6 +658,8 @@ namespace Hector
                 }
             
             }
+            ActualiserNombreTotaux();
+            ActualiserStatusStrip();
         }
 
         /// <summary>
@@ -771,6 +797,8 @@ namespace Hector
                 }
 
             }
+            ActualiserNombreTotaux();
+            ActualiserStatusStrip();
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -807,6 +835,33 @@ namespace Hector
                     break;
             }
 
+        }
+
+
+        /// <summary>
+        /// Actualise les nombres d'objets dans la base de données.
+        /// </summary>
+        private void ActualiserNombreTotaux()
+        {
+            Controller.DAO.DAOArticles DaoArticles = new Controller.DAO.DAOArticles();
+            Controller.DAO.DAOFamilles DaoFamilles = new Controller.DAO.DAOFamilles();
+            Controller.DAO.DAOMarques DaoMarques = new Controller.DAO.DAOMarques();
+            Controller.DAO.DAOSousFamilles DaoSousFamilles = new Controller.DAO.DAOSousFamilles();
+
+            NbArticlesActuel = DaoArticles.GetAll().Count;
+            NbFamillesActuel = DaoFamilles.GetAll().Count;
+            NbMarquesActuel = DaoMarques.GetAll().Count;
+            NbSousFamillesActuel = DaoSousFamilles.GetAll().Count;
+        }
+
+        /// <summary>
+        /// Actualise le StatusStrip en donnant le nombre d'objets dans la base de données.
+        /// </summary>
+        private void ActualiserStatusStrip()
+        {
+            // Show text on the status bar
+            
+            toolStripStatusLabel1.Text = "Nombre d'articles : " + NbArticlesActuel.ToString() + " | Nombre de marques : " + NbMarquesActuel.ToString() + " | Nombre de familles : " + NbFamillesActuel.ToString() + " | Nombre de sous familles : " + NbSousFamillesActuel.ToString();
         }
     }
 }
