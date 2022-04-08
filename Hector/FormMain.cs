@@ -244,6 +244,7 @@ namespace Hector
             listView1.Items.Clear();
             listView1.Columns.Clear();
             TypeAfficheActuel = ListViewDisplayType.NONVALIDE;
+            this.listView1.ListViewItemSorter = new ListViewItemComparer(0);
         }
 
         /// <summary>
