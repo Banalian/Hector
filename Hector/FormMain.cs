@@ -7,11 +7,19 @@ using System.Windows.Forms;
 using Hector.Controller;
 using Hector.Controller.DAO;
 using Hector.Model;
+using System.Configuration;
+
 
 namespace Hector
 {
     public partial class FormMain : Form
     {
+
+        /// <summary>
+        /// Confirguration de l'utilisateur
+        /// </summary>
+        Configuration AppConfig;
+
 
         /// <summary>
         /// Le nombre d'article actuellement dans la base
@@ -29,10 +37,31 @@ namespace Hector
         /// Le nombre de sous familles actuellement dans la base
         /// </summary>
         private int NbSousFamillesActuel;
-        
+
+
+        /// <summary>
+        /// Constructeur du form principal. positionne la fenetre, setup les variables et actualise les parties du form.
+        /// </summary>
         public FormMain()
         {
             InitializeComponent();
+            string LocationX = ReadSetting("LocationX");
+            string LocationY = ReadSetting("LocationY");
+            string Maximise = ReadSetting("Maximise");
+
+            if (LocationX != "Not Found" && LocationY != "Not Found")
+            {
+                this.Location = new System.Drawing.Point(Convert.ToInt32(LocationX), Convert.ToInt32(LocationY));
+            }
+            if (Maximise != null)
+            {
+                if (Maximise == "Maximized")
+                {
+                    this.WindowState = FormWindowState.Maximized;
+                }
+            }
+
+
             NbArticlesActuel = 0;
             NbMarquesActuel = 0;
             NbFamillesActuel = 0;
@@ -47,6 +76,21 @@ namespace Hector
             ActualiserNombreTotaux();
             ActualiserStatusStrip();
         }
+
+        /// <summary>
+        /// Surcharge d'onClosing pour sauver la position de la fenêtre et son etat
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            AddUpdateAppSettings("LocationX", this.Location.X.ToString());
+            AddUpdateAppSettings("LocationY", this.Location.Y.ToString());
+            AddUpdateAppSettings("Maximise", this.WindowState.ToString());
+
+            base.OnClosing(e);
+        }        
+
+
 
 
         /// <summary>
@@ -839,6 +883,8 @@ namespace Hector
         }
 
 
+        //------------------------------------ StatusStrip --------------------------------------------------
+
         /// <summary>
         /// Actualise les nombres d'objets dans la base de données.
         /// </summary>
@@ -863,6 +909,48 @@ namespace Hector
             // Show text on the status bar
             
             toolStripStatusLabel1.Text = "Nombre d'articles : " + NbArticlesActuel.ToString() + " | Nombre de marques : " + NbMarquesActuel.ToString() + " | Nombre de familles : " + NbFamillesActuel.ToString() + " | Nombre de sous familles : " + NbSousFamillesActuel.ToString();
+        }
+
+
+
+
+        // --------------------------------- Config ------------------------------------------------------
+        static void AddUpdateAppSettings(string key, string value)
+        {
+            try
+            {
+                var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                var settings = configFile.AppSettings.Settings;
+                if (settings[key] == null)
+                {
+                    settings.Add(key, value);
+                }
+                else
+                {
+                    settings[key].Value = value;
+                }
+                configFile.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
+            }
+            catch (ConfigurationErrorsException)
+            {
+                Console.WriteLine("Error writing app settings");
+            }
+        }
+
+        static string ReadSetting(string key)
+        {
+            try
+            {
+                var appSettings = ConfigurationManager.AppSettings;
+                string result = appSettings[key] ?? "Not Found";
+                return result;
+            }
+            catch (ConfigurationErrorsException)
+            {
+                Console.WriteLine("Error reading app settings");
+                return null;
+            }
         }
     }
 }
