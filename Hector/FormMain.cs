@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -620,10 +621,17 @@ namespace Hector
             }
             else if (ObjetASupprimer.GetType() == typeof(Model.Famille))
             {
+                // On vérifie qu'il n'y a pas de sous familles associées à la famille à supprimer
+                Controller.DAO.DAOSousFamilles DaoSousFamilles = new Controller.DAO.DAOSousFamilles();
+                List<Model.SousFamille> SousFamilles = DaoSousFamilles.GetAllByFamille((Model.Famille)ObjetASupprimer);
+                if (SousFamilles.Count > 0)
+                {
+                    MessageBox.Show("Vous ne pouvez pas supprimer la famille " + ((Model.Famille)ObjetASupprimer).NomFamille + " car elle contient des sous familles");
+                    return;
+                }
                 DialogResult Resultat = MessageBox.Show("Voulez-vous vraiment supprimer la famille " + ((Model.Famille)ObjetASupprimer).NomFamille + " ? Cela supprimera les sous familles et familles correspondantes", "Suppression", MessageBoxButtons.YesNo);
                 if (Resultat == DialogResult.Yes)
                 {
-                    //TODO : Supprimer les sous familles et articles correspondantes
                     Controller.DAO.DAOFamilles DaoFamilles = new Controller.DAO.DAOFamilles();
                     DaoFamilles.DeleteById(((Model.Famille)ObjetASupprimer).RefFamille);
                 }
@@ -634,10 +642,17 @@ namespace Hector
             }
             else if (ObjetASupprimer.GetType() == typeof(Model.Marque))
             {
+                // On vérifie qu'il n'y a pas d'articles associés à la marque à supprimer
+                Controller.DAO.DAOArticles DaoArticles = new Controller.DAO.DAOArticles();
+                List<Model.Article> Articles = DaoArticles.GetAllByMarque((Model.Marque)ObjetASupprimer);
+                if (Articles.Count > 0)
+                {
+                    MessageBox.Show("Vous ne pouvez pas supprimer la marque " + ((Model.Marque)ObjetASupprimer).NomMarque + " car elle contient des articles");
+                    return;
+                }
                 DialogResult Resultat = MessageBox.Show("Voulez-vous vraiment supprimer la marque " + ((Model.Marque)ObjetASupprimer).NomMarque + " ? Cela supprimera les articles correspondants", "Suppression", MessageBoxButtons.YesNo);
                 if (Resultat == DialogResult.Yes)
                 {
-                    //TODO : Supprimer les articles correspondants
                     Controller.DAO.DAOMarques DaoMarques = new Controller.DAO.DAOMarques();
                     DaoMarques.DeleteById(((Model.Marque)ObjetASupprimer).RefMarque);
                 }
@@ -648,6 +663,14 @@ namespace Hector
             }
             else if (ObjetASupprimer.GetType() == typeof(Model.SousFamille))
             {
+                // On vérifie qu'il n'y a pas d'articles associés à la sous famille à supprimer
+                Controller.DAO.DAOArticles DaoArticles = new Controller.DAO.DAOArticles();
+                List<Model.Article> Articles = DaoArticles.GetAllBySousFamille((Model.SousFamille)ObjetASupprimer);
+                if (Articles.Count > 0)
+                {
+                    MessageBox.Show("Vous ne pouvez pas supprimer la sous famille " + ((Model.SousFamille)ObjetASupprimer).NomSousFamille + " car elle contient des articles");
+                    return;
+                }
                 DialogResult Resultat = MessageBox.Show("Voulez-vous vraiment supprimer la sous famille " + ((Model.SousFamille)ObjetASupprimer).NomSousFamille + " ? Cela supprimera tout les articles avec cette sous famille", "Suppression", MessageBoxButtons.YesNo);
                 if (Resultat == DialogResult.Yes)
                 {
