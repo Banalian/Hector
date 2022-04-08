@@ -26,6 +26,8 @@ namespace Hector
         public FormModification(FormMain.ListViewDisplayType type, int mode = 1, object obj = null)
         {
             InitializeComponent();
+            // On met la fenêtre au centre de son parent
+            this.StartPosition = FormStartPosition.CenterParent;
             if (type == FormMain.ListViewDisplayType.NONVALIDE)
             {
                 throw new Exception("Erreur : Type est non valide");

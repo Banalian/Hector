@@ -121,29 +121,29 @@
             // 
             // labelFamilleSousFamille
             // 
+            this.labelFamilleSousFamille.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelFamilleSousFamille.AutoSize = true;
-            this.labelFamilleSousFamille.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelFamilleSousFamille.Location = new System.Drawing.Point(3, 26);
+            this.labelFamilleSousFamille.Location = new System.Drawing.Point(42, 32);
             this.labelFamilleSousFamille.Name = "labelFamilleSousFamille";
-            this.labelFamilleSousFamille.Size = new System.Drawing.Size(78, 26);
+            this.labelFamilleSousFamille.Size = new System.Drawing.Size(39, 13);
             this.labelFamilleSousFamille.TabIndex = 10;
             this.labelFamilleSousFamille.Text = "Famille";
             this.labelFamilleSousFamille.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelNomSousFamille
             // 
+            this.labelNomSousFamille.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelNomSousFamille.AutoSize = true;
-            this.labelNomSousFamille.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelNomSousFamille.Location = new System.Drawing.Point(3, 0);
+            this.labelNomSousFamille.Location = new System.Drawing.Point(20, 0);
             this.labelNomSousFamille.Name = "labelNomSousFamille";
-            this.labelNomSousFamille.Size = new System.Drawing.Size(78, 26);
+            this.labelNomSousFamille.Size = new System.Drawing.Size(61, 26);
             this.labelNomSousFamille.TabIndex = 0;
             this.labelNomSousFamille.Text = "Nom de la sous famille";
             this.labelNomSousFamille.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // textBoxNomSousFamille
             // 
-            this.textBoxNomSousFamille.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxNomSousFamille.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.textBoxNomSousFamille.Location = new System.Drawing.Point(87, 3);
             this.textBoxNomSousFamille.Name = "textBoxNomSousFamille";
             this.textBoxNomSousFamille.Size = new System.Drawing.Size(248, 20);
@@ -151,7 +151,7 @@
             // 
             // comboBoxFamilleSousFamille
             // 
-            this.comboBoxFamilleSousFamille.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBoxFamilleSousFamille.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.comboBoxFamilleSousFamille.FormattingEnabled = true;
             this.comboBoxFamilleSousFamille.Location = new System.Drawing.Point(87, 29);
             this.comboBoxFamilleSousFamille.Name = "comboBoxFamilleSousFamille";
@@ -177,18 +177,18 @@
             // 
             // labelNomMarque
             // 
+            this.labelNomMarque.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelNomMarque.AutoSize = true;
-            this.labelNomMarque.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelNomMarque.Location = new System.Drawing.Point(3, 0);
+            this.labelNomMarque.Location = new System.Drawing.Point(26, 0);
             this.labelNomMarque.Name = "labelNomMarque";
-            this.labelNomMarque.Size = new System.Drawing.Size(78, 22);
+            this.labelNomMarque.Size = new System.Drawing.Size(55, 22);
             this.labelNomMarque.TabIndex = 0;
             this.labelNomMarque.Text = "Nom de la Marque";
             this.labelNomMarque.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // textBoxNomMarque
             // 
-            this.textBoxNomMarque.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxNomMarque.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.textBoxNomMarque.Location = new System.Drawing.Point(87, 3);
             this.textBoxNomMarque.Name = "textBoxNomMarque";
             this.textBoxNomMarque.Size = new System.Drawing.Size(247, 20);
@@ -213,18 +213,18 @@
             // 
             // labelNomFamille
             // 
+            this.labelNomFamille.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelNomFamille.AutoSize = true;
-            this.labelNomFamille.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelNomFamille.Location = new System.Drawing.Point(3, 0);
+            this.labelNomFamille.Location = new System.Drawing.Point(26, 0);
             this.labelNomFamille.Name = "labelNomFamille";
-            this.labelNomFamille.Size = new System.Drawing.Size(78, 20);
+            this.labelNomFamille.Size = new System.Drawing.Size(55, 20);
             this.labelNomFamille.TabIndex = 0;
             this.labelNomFamille.Text = "Nom de la famille";
             this.labelNomFamille.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // textBoxNomFamille
             // 
-            this.textBoxNomFamille.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxNomFamille.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.textBoxNomFamille.Location = new System.Drawing.Point(87, 3);
             this.textBoxNomFamille.Name = "textBoxNomFamille";
             this.textBoxNomFamille.Size = new System.Drawing.Size(247, 20);
@@ -261,62 +261,62 @@
             // 
             // labelReference
             // 
+            this.labelReference.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelReference.AutoSize = true;
-            this.labelReference.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelReference.Location = new System.Drawing.Point(3, 0);
+            this.labelReference.Location = new System.Drawing.Point(24, 5);
             this.labelReference.Name = "labelReference";
-            this.labelReference.Size = new System.Drawing.Size(78, 24);
+            this.labelReference.Size = new System.Drawing.Size(57, 13);
             this.labelReference.TabIndex = 0;
             this.labelReference.Text = "Reference";
             this.labelReference.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelDescription
             // 
+            this.labelDescription.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelDescription.AutoSize = true;
-            this.labelDescription.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelDescription.Location = new System.Drawing.Point(3, 24);
+            this.labelDescription.Location = new System.Drawing.Point(21, 29);
             this.labelDescription.Name = "labelDescription";
-            this.labelDescription.Size = new System.Drawing.Size(78, 24);
+            this.labelDescription.Size = new System.Drawing.Size(60, 13);
             this.labelDescription.TabIndex = 1;
             this.labelDescription.Text = "Description";
             this.labelDescription.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelMarque
             // 
+            this.labelMarque.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelMarque.AutoSize = true;
-            this.labelMarque.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelMarque.Location = new System.Drawing.Point(3, 48);
+            this.labelMarque.Location = new System.Drawing.Point(38, 53);
             this.labelMarque.Name = "labelMarque";
-            this.labelMarque.Size = new System.Drawing.Size(78, 24);
+            this.labelMarque.Size = new System.Drawing.Size(43, 13);
             this.labelMarque.TabIndex = 2;
             this.labelMarque.Text = "Marque";
             this.labelMarque.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelSousFamille
             // 
+            this.labelSousFamille.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelSousFamille.AutoSize = true;
-            this.labelSousFamille.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelSousFamille.Location = new System.Drawing.Point(3, 72);
+            this.labelSousFamille.Location = new System.Drawing.Point(15, 77);
             this.labelSousFamille.Name = "labelSousFamille";
-            this.labelSousFamille.Size = new System.Drawing.Size(78, 24);
+            this.labelSousFamille.Size = new System.Drawing.Size(66, 13);
             this.labelSousFamille.TabIndex = 3;
             this.labelSousFamille.Text = "Sous Famille";
             this.labelSousFamille.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelQuantite
             // 
+            this.labelQuantite.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelQuantite.AutoSize = true;
-            this.labelQuantite.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelQuantite.Location = new System.Drawing.Point(3, 96);
+            this.labelQuantite.Location = new System.Drawing.Point(34, 102);
             this.labelQuantite.Name = "labelQuantite";
-            this.labelQuantite.Size = new System.Drawing.Size(78, 26);
+            this.labelQuantite.Size = new System.Drawing.Size(47, 13);
             this.labelQuantite.TabIndex = 4;
             this.labelQuantite.Text = "Quantité";
             this.labelQuantite.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // textBoxDescription
             // 
-            this.textBoxDescription.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxDescription.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.textBoxDescription.Location = new System.Drawing.Point(87, 27);
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.Size = new System.Drawing.Size(248, 20);
@@ -324,7 +324,7 @@
             // 
             // numericUpDownQuantite
             // 
-            this.numericUpDownQuantite.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDownQuantite.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.numericUpDownQuantite.Location = new System.Drawing.Point(87, 99);
             this.numericUpDownQuantite.Name = "numericUpDownQuantite";
             this.numericUpDownQuantite.Size = new System.Drawing.Size(248, 20);
@@ -332,7 +332,7 @@
             // 
             // comboBoxMarque
             // 
-            this.comboBoxMarque.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBoxMarque.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.comboBoxMarque.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxMarque.Location = new System.Drawing.Point(87, 51);
             this.comboBoxMarque.Name = "comboBoxMarque";
@@ -341,7 +341,7 @@
             // 
             // comboBoxSousFamille
             // 
-            this.comboBoxSousFamille.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBoxSousFamille.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.comboBoxSousFamille.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSousFamille.FormattingEnabled = true;
             this.comboBoxSousFamille.Location = new System.Drawing.Point(87, 75);
@@ -351,7 +351,7 @@
             // 
             // textBoxReferenceArticle
             // 
-            this.textBoxReferenceArticle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxReferenceArticle.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.textBoxReferenceArticle.Location = new System.Drawing.Point(87, 3);
             this.textBoxReferenceArticle.Name = "textBoxReferenceArticle";
             this.textBoxReferenceArticle.Size = new System.Drawing.Size(248, 20);
