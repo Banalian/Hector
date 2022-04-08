@@ -279,6 +279,14 @@ namespace Hector
                         {
                             Valide = false;
                         }
+                        if (Article.Quantite < 0)
+                        {
+                            Valide = false;
+                        }
+                        if (Article.Reference.Length > 8)
+                        {
+                            Valide = false;
+                        }
 
                         break;
                     }
@@ -345,7 +353,7 @@ namespace Hector
             }
             else
             {
-                MessageBox.Show("Objet non valide. Pensez à remplir tout les paramètres. Rien ne peut être vide.");
+                MessageBox.Show("Objet non valide. Pensez à remplir tout les paramètres. Rien ne peut être vide. Pour un article, la quantité doit être supérieur à 0 et la référence doit être inférieur à 8 caractères.");
             }
             
         }
