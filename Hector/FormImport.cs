@@ -16,6 +16,10 @@ namespace Hector
         /// Nom du fichier à importer
         /// </summary>
         private string NomDeFichier { get; set; }
+
+        /// <summary>
+        /// Boolean pour savoir si on est en mode ecrasement
+        /// </summary>
         public bool Ecrasement { get; private set; }
         public FormImport()
         {

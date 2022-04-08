@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Hector.Model
 {
+
+    /// <summary>
+    /// Classe pour représenter un article, avec différentes informations comme sa référence ou sa marque
+    /// </summary>
     public class Article
     {
         public String Description { get; set; }

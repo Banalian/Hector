@@ -12,9 +12,24 @@ namespace Hector
 {
     public partial class FormModification : Form
     {
+        /// <summary>
+        /// Objet représentant l'objet à modifier, comme un article ou une marque par exemple
+        /// </summary>
         public object Objet { get; private set; }
+
+        /// <summary>
+        /// Type de l'objet, afin de plus facilement le traiter
+        /// </summary>
         private FormMain.ListViewDisplayType Type;
+
+        /// <summary>
+        /// Id de l'objet actuel
+        /// </summary>
         private int IdObjet;
+
+        /// <summary>
+        /// Mode du formulaire (1 pour un ajout, 2 pour une modification)
+        /// </summary>
         private int Mode;
 
         /// <summary>

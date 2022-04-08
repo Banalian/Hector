@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Hector.Model
 {
+
+    /// <summary>
+    /// Classe représentant une marque.
+    /// </summary>
     public class Marque
     {
         public int RefMarque { get; set; }

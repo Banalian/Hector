@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Hector.Model
 {
+    /// <summary>
+    /// Classe représentant une famille d'un objet
+    /// </summary>
     public class Famille
     {
         public int RefFamille { get; set; }
