@@ -64,7 +64,7 @@ namespace Hector.Controller.DAO
         {
             var Conn = ConnectionDB.DBConnection;
             var St = Conn.CreateCommand();
-            St.CommandText = "DELETE FROM Article WHERE RefArticle=@id";
+            St.CommandText = "DELETE FROM Articles WHERE RefArticle=@id";
             St.Parameters.AddWithValue("@id", Id);
             St.ExecuteNonQuery();
         }

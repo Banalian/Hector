@@ -1,15 +1,8 @@
 ﻿using System;
-using static Hector.Model.Article;
 using System.Collections;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Diagnostics;
-using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Hector
 {
@@ -345,9 +338,31 @@ namespace Hector
             ListViewItem Item;
             string[] ItemDesc = new string[5];
             ItemDesc[0] = Article.Description;
-            ItemDesc[1] = Article.SousFamille.Famille.NomFamille;
-            ItemDesc[2] = Article.SousFamille.NomSousFamille;
-            ItemDesc[3] = Article.Marque.NomMarque;
+            if(Article.SousFamille != null)
+            {
+                if (Article.SousFamille.Famille != null)
+                {
+                    ItemDesc[1] = Article.SousFamille.Famille.NomFamille;
+                }
+                else
+                {
+                    ItemDesc[1] = "";
+                }
+                ItemDesc[2] = Article.SousFamille.NomSousFamille;
+            }
+            else
+            {
+                ItemDesc[1] = "";
+                ItemDesc[2] = "";
+            }
+            if (Article.Marque != null)
+            {
+                ItemDesc[3] = Article.Marque.NomMarque;
+            }
+            else
+            {
+                ItemDesc[3] = "";
+            }
             ItemDesc[4] = Article.Quantite.ToString();
             Item = new ListViewItem(ItemDesc);
             return Item;
@@ -492,7 +507,7 @@ namespace Hector
             else
             {
                 supprimerLélémentToolStripMenuItem.Enabled = false;
-                modifierLélémentToolStripMenuItem.Enabled = false
+                modifierLélémentToolStripMenuItem.Enabled = false;
             }
         }
 
@@ -576,6 +591,100 @@ namespace Hector
                     MessageBox.Show("Erreur : Type de l'objet non reconnu/non valide, type = " + FormModif.Objet.GetType().ToString());
                 }
             
+            }
+        }
+
+        /// <summary>
+        /// Event handler de l'evenement de la suppression d'un élément.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void supprimerLélémentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // On récupère l'objet à supprimer
+            Object ObjetASupprimer = listView1.SelectedItems[0].Tag;
+            // On supprime l'objet de la BDD avec le DAO correspondant
+            if (ObjetASupprimer.GetType() == typeof(Model.Article))
+            {
+                Controller.DAO.DAOArticles DaoArticles = new Controller.DAO.DAOArticles();
+                DaoArticles.DeleteById(((Model.Article)ObjetASupprimer).Reference);
+            }
+            else if (ObjetASupprimer.GetType() == typeof(Model.Famille))
+            {
+                DialogResult Resultat = MessageBox.Show("Voulez-vous vraiment supprimer la famille " + ((Model.Famille)ObjetASupprimer).NomFamille + " ? Cela supprimera les sous familles et familles correspondantes", "Suppression", MessageBoxButtons.YesNo);
+                if (Resultat == DialogResult.Yes)
+                {
+                    //TODO : Supprimer les sous familles et articles correspondantes
+                    Controller.DAO.DAOFamilles DaoFamilles = new Controller.DAO.DAOFamilles();
+                    DaoFamilles.DeleteById(((Model.Famille)ObjetASupprimer).RefFamille);
+                }
+            }
+            else if (ObjetASupprimer.GetType() == typeof(Model.Marque))
+            {
+                DialogResult Resultat = MessageBox.Show("Voulez-vous vraiment supprimer la marque " + ((Model.Marque)ObjetASupprimer).NomMarque + " ? Cela supprimera les articles correspondants", "Suppression", MessageBoxButtons.YesNo);
+                if (Resultat == DialogResult.Yes)
+                {
+                    //TODO : Supprimer les articles correspondants
+                    Controller.DAO.DAOMarques DaoMarques = new Controller.DAO.DAOMarques();
+                    DaoMarques.DeleteById(((Model.Marque)ObjetASupprimer).RefMarque);
+                }
+            }
+            else if (ObjetASupprimer.GetType() == typeof(Model.SousFamille))
+            {
+                DialogResult Resultat = MessageBox.Show("Voulez-vous vraiment supprimer la sous famille " + ((Model.SousFamille)ObjetASupprimer).NomSousFamille + " ? Cela supprimera tout les articles avec cette sous famille", "Suppression", MessageBoxButtons.YesNo);
+                if (Resultat == DialogResult.Yes)
+                {
+                    //TODO : Supprimer les articles de la sous famille
+                    Controller.DAO.DAOSousFamilles DaoSousFamilles = new Controller.DAO.DAOSousFamilles();
+                    DaoSousFamilles.DeleteById(((Model.SousFamille)ObjetASupprimer).RefSousFamille);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Erreur : Type de l'objet non reconnu/non valide, type = " + ObjetASupprimer.GetType().ToString());
+            }
+
+            // On supprime l'objet de la listView, et de la TreeView si nécessaire
+            listView1.Items.Remove(listView1.SelectedItems[0]);
+            if (ObjetASupprimer.GetType() == typeof(Model.SousFamille))
+            {
+                foreach (TreeNode Famille in treeView1.Nodes[1].Nodes)
+                {
+                    if (((Model.SousFamille)ObjetASupprimer).Famille.RefFamille == ((Model.Famille)Famille.Tag).RefFamille)
+                    {
+                        foreach (TreeNode SousFamille in Famille.Nodes)
+                        {
+                            if (((Model.SousFamille)ObjetASupprimer).RefSousFamille == ((Model.SousFamille)SousFamille.Tag).RefSousFamille)
+                            {
+                                Famille.Nodes.Remove(SousFamille);
+                                break;
+                            }
+                        }
+                    }
+                }
+            } 
+            else if(ObjetASupprimer.GetType() == typeof(Model.Marque))
+            {
+                foreach (TreeNode Marque in treeView1.Nodes[2].Nodes)
+                {
+                    if (((Model.Marque)ObjetASupprimer).RefMarque == ((Model.Marque)Marque.Tag).RefMarque)
+                    {
+                        treeView1.Nodes[2].Nodes.Remove(Marque);
+                        break;
+                    }
+                }
+            }
+            else if (ObjetASupprimer.GetType() == typeof(Model.Famille))
+            {
+                foreach (TreeNode Famille in treeView1.Nodes[1].Nodes)
+                {
+                    if (((Model.Famille)ObjetASupprimer).RefFamille == ((Model.Famille)Famille.Tag).RefFamille)
+                    {
+                        treeView1.Nodes[1].Nodes.Remove(Famille);
+                        break;
+                    }
+                }
+
             }
         }
     }
