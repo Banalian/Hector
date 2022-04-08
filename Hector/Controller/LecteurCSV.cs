@@ -33,8 +33,9 @@ namespace Hector.Controller
 
             LecteurResultat rez = new LecteurResultat();
 
-            String data = StreamReader.ReadLine();
+            String data ;
             String[] ligne;
+            data = StreamReader.ReadLine();
             while ((data = StreamReader.ReadLine()) != null)
             {
                 ligne = data.Split(Separateurs.ToArray());
@@ -56,6 +57,8 @@ namespace Hector.Controller
                 rez.ajouterArticle(articleActuel);
 
             }
+
+            StreamReader.Close();
 
             return rez;
         }

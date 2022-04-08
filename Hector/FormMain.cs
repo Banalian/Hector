@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
+using Hector.Controller;
+using Hector.Controller.DAO;
+using Hector.Model;
 
 namespace Hector
 {
@@ -16,9 +19,12 @@ namespace Hector
             // Connexion de l'evenement ListView.ColumnClick au handler  d'evenements ColumnClick.
             this.listView1.ColumnClick += new ColumnClickEventHandler(ColumnClick);
             listView1.Sorting = SortOrder.Ascending;
+
+            this.exporterToolStripMenuItem.Click += new EventHandler(exporterToolStripMenuItem_Click);
             
             ActualiserTreeView();
         }
+
 
         /// <summary>
         /// Appelle le form d'importation des données, avant d'actualiser l'arborescence
@@ -29,12 +35,46 @@ namespace Hector
         {
             FormImport importForm = new FormImport();
             importForm.ShowDialog();
-
             // On actualise le treeView
             ActualiserTreeView();
             ViderListView();
         }
 
+
+        /// <summary>
+        /// Remplit un fichier CSV avec les informations actuellement en BDD
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void exporterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            //ouverture ou création d'un fichier csv
+            SaveFileDialog ExportDialog = new SaveFileDialog
+            {
+                Title = "Exporter",
+                Filter = "Fichier csv|*.csv",
+
+                DefaultExt = "Données"
+            };
+            var result = ExportDialog.ShowDialog();
+            if (result == DialogResult.OK) { 
+                System.IO.FileStream fs = (System.IO.FileStream)ExportDialog.OpenFile();
+                //remplissage du fichier
+                EditeurCSV editeur = new EditeurCSV(fs);
+
+                DAOArticles dao = new DAOArticles();
+
+                List<Article> articles = dao.GetAll();
+
+                editeur.Ecrire(articles);
+
+                fs.Close();
+
+            }
+
+
+        }
 
         /// <summary>
         /// Event handler de l'evenement du bouton "actualiser"
@@ -731,6 +771,42 @@ namespace Hector
                 }
 
             }
+        }
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        private void listView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            bool selected = (this.listView1.SelectedItems.Count > 0);
+            switch (e.KeyCode)
+            {
+                case Keys.Return:
+                    if (selected)
+                    {
+                    modifierLélémentToolStripMenuItem_Click(sender, e);
+                    }
+                    break;
+                case Keys.Space:
+                    if (selected)
+                    {
+                        modifierLélémentToolStripMenuItem_Click(sender, e);
+                    }
+                    break;
+                case Keys.F5:
+                    ActualiserTreeView();
+                    break;
+                case Keys.Delete:
+                    if (selected)
+                    {
+                        supprimerLélémentToolStripMenuItem_Click(sender, e);
+                    }
+                    break;
+            }
+
         }
     }
 }

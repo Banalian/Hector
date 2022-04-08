@@ -48,7 +48,7 @@ namespace Hector.Controller.DAO
         }
 
         /// <summary>
-        /// Supprime un artcile par son Id
+        /// Supprime un article par son Id
         /// </summary>
         /// <param name="Id">l'Id de l'article à supprimer</param>
         public void DeleteById(int Id)
